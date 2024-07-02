@@ -1,10 +1,20 @@
 # Inception
 
 
+## Introduction
+
+This repository is a collection of notes, code snippets, and other resources that I have gathered over time. It is a work in progress and will be updated as I learn new things.
+
+## Table of Contents
+
 ## KodeKloud Courses
 
-### Docker
+### learning Paths: Docker
 #### DevOps Pre-Requisites Course
+
+<details>
+<summary>Curriculum
+</summary>
 
 - [x] 1. **Linux Basics**
 	- [ ] 1.1 Linux CLI
@@ -49,3 +59,15 @@
 	- [ ] 1.6 NodeJS - 
 	- [ ] 1.7 IPs and Ports
 	- [ ] 1.8 SSL and Certificates
+- [ ] 7. Databases
+	- [ ] 1.1 Who is this for?
+		- [ ] 1.1.1 Non-Developers
+	- [ ] 1.2 Different types of databases
+		- [ ] 1.2.1 MySQL
+		- [ ] 1.2.2 PostgreSQL
+		- [ ] 1.2.3 MongoDB
+	- [ ] 1.3 Web Servers
+- [ ] 8. Multi-Tier Applications
+- [ ] 9. JSON/YAML
+
+</details>
