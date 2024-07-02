@@ -19,3 +19,33 @@
 		- [ ] 1.2.3 Networking and Troubleshooting Network
 		- [ ] 1.2.4 Snapshots
 	- [ ] 1.3 Vagrant
+- [ ] 3. Linux Networking Basics
+	- [ ] 1.1 Interfaces
+	- [ ] 1.2 IP Addressing
+	- [ ] 1.3 Routing
+	- [ ] 1.4 DNS
+- [ ] 4. SCM Basics (GIT)
+	- [ ] 1.1 nstall GIT
+	- [ ] 1.2 Git Repository
+	- [ ] 1.3 Clone source code with GIT
+	- [ ] 1.4 Make and commit changes
+	- [ ] 1.5 Push source code
+- [ ] 5. Application Basics
+	- [ ] 1.1 Who is this for?
+		- [ ] 1.1.1 Non-Developers
+	- [ ] 1.2 Different types of applications
+		- [ ] 1.2.1 Python
+		- [ ] 1.2.2 Java
+		- [ ] 1.2.3 NodeJS
+	- [ ] 1.3 Building
+	- [ ] 1.4 Troubleshooting
+	- [ ] 1.5 Labs
+- [ ] 6. Web Servers
+	- [ ] 1.1 Web Frameworks
+	- [ ] 1.2 Web Servers
+	- [ ] 1.3 Apache HTTPD
+	- [ ] 1.4 Nginx
+	- [ ] 1.5 Python - Gunicorn
+	- [ ] 1.6 NodeJS - 
+	- [ ] 1.7 IPs and Ports
+	- [ ] 1.8 SSL and Certificates
