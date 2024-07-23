@@ -71,3 +71,8 @@ This repository is a collection of notes, code snippets, and other resources tha
 - [ ] 9. JSON/YAML
 
 </details>
+
+
+## Resources
+
+- [Professeur Mohamed YOUSSFI - Virtualisation et Containérisation : VirtualBox DOCKER KUBERNETES](https://youtube.com/playlist?list=PLxr551TUsmApVwBMzhtLqrWqcKQs4sh19&si=W0Y5nBVF4gC4Hi5k)
