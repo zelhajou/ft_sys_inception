@@ -81,8 +81,54 @@ This repository is a collection of notes, code snippets, and other resources tha
 
   			La virtualisation est une technologie puissante qui permet de maximiser l'utilisation des ressources matérielles, d'améliorer la flexibilité et de simplifier la gestion des environnements informatiques. En comprenant les différents composants et types de virtualisation, ainsi que les rôles des hyperviseurs, les professionnels de l'informatique peuvent mieux tirer parti de cette technologie pour répondre aux besoins de leurs organisations.
 
+ 	- <details>
+		<summary>
+			Part 3 Virtualisation et Containerisation - Bases de Virtual Box
+		</summary>
+ 
+	  	- **Introduction à la virtualisation**: La virtualisation est une technologie qui permet de créer plusieurs environnements virtuels sur une seule machine physique. Cette technologie a révolutionné l'informatique moderne en permettant une utilisation plus efficace des ressources matérielles et en offrant une flexibilité accrue pour l'exécution de différents systèmes d'exploitation et applications.
+   		- **Installation de VirtualBox**: Pour installer VirtualBox, téléchargez simplement la version appropriée pour votre système d'exploitation (Windows, macOS, Linux) depuis le site officiel de VirtualBox. L'installation suit un processus classique où vous devez accepter les termes de la licence et suivre les instructions à l'écran pour compléter l'installation.
+		- **Création d'une machine virtuelle**: Une fois VirtualBox installé, vous pouvez commencer à créer des machines virtuelles. Voici les étapes pour créer une machine virtuelle sous VirtualBox :
 
-	- Part 3 Virtualisation et Containerisation - Bases de Virtual Box
+			1. **Ouvrir VirtualBox**: Lancez le logiciel VirtualBox.
+			2. **Créer une nouvelle machine virtuelle**: Cliquez sur "Nouvelle" pour ouvrir l'assistant de création de machine virtuelle.
+			3. **Nom et type de système d'exploitation**: Donnez un nom à votre machine virtuelle et sélectionnez le type et la version du système d'exploitation que vous allez installer. Par exemple, pour installer Ubuntu, sélectionnez "Linux" et "Ubuntu (64-bit)".
+			4. **Allocation de mémoire**: Allouez la quantité de mémoire RAM à la machine virtuelle. Une allocation de 2048 Mo (2 Go) est recommandée pour les systèmes Linux.
+			5. **Création d'un disque dur virtuel**: Sélectionnez l'option pour créer un nouveau disque dur virtuel et choisissez le format du fichier de disque dur (VDI est recommandé). Vous pouvez également choisir entre une allocation dynamique ou une taille fixe pour le disque dur virtuel.
+			6. **Configuration finale**: Passez en revue les paramètres et terminez la création de la machine virtuelle.
+
+		- **Configuration de la machine virtuelle**: Une fois la machine virtuelle créée, vous pouvez ajuster ses paramètres selon vos besoins :
+    
+			1. **Ordre de démarrage**: Modifiez l'ordre de démarrage pour que la machine virtuelle démarre à partir du lecteur CD/ISO en premier, puis du disque dur.
+			2. **Processeurs**: Vous pouvez allouer plusieurs cœurs de processeur à la machine virtuelle en fonction des ressources disponibles sur votre machine hôte.
+			3. **Stockage**: Ajoutez des images ISO ou des disques durs virtuels supplémentaires à la machine virtuelle.
+
+		- **Installation du système d'exploitation**: Pour installer un système d'exploitation sur la machine virtuelle, suivez ces étapes :
+
+  			1. **Télécharger l'image ISO**: Téléchargez l'image ISO du système d'exploitation que vous souhaitez installer (par exemple, Ubuntu).
+			2. **Monter l'image ISO**: Dans les paramètres de la machine virtuelle, allez dans l'onglet "Stockage", sélectionnez le lecteur optique, et montez l'image ISO téléchargée.
+			3. **Démarrer la machine virtuelle**: Démarrez la machine virtuelle. Elle devrait démarrer à partir de l'image ISO et lancer le processus d'installation du système d'exploitation.
+			4. **Suivre les instructions d'installation**: Suivez les instructions à l'écran pour installer le système d'exploitation dans la machine virtuelle.
+
+
+		- **Connectivité réseau**: VirtualBox propose plusieurs modes de connectivité réseau pour les machines virtuelles :
+ 
+		  	1. **NAT (Network Address Translation)**: Par défaut, VirtualBox utilise le mode NAT, qui permet à la machine virtuelle d'accéder à Internet mais empêche les connexions entrantes depuis l'extérieur.
+			2. **Bridge Networking**: Ce mode connecte la machine virtuelle directement au réseau physique de l'hôte, lui permettant d'obtenir une adresse IP du même réseau que l'hôte.
+			3. **Host-Only Networking**: Ce mode crée un réseau isolé où seules les machines virtuelles et l'hôte peuvent communiquer entre elles.
+			4. **Internal Networking**: Les machines virtuelles peuvent communiquer entre elles sur un réseau interne sans accès à l'hôte ou à Internet.
+
+		- **Conclusion**: VirtualBox est un outil puissant et flexible pour créer et gérer des environnements virtuels. Il permet d'exécuter plusieurs systèmes d'exploitation sur une seule machine physique, facilitant ainsi les tests, le développement et la gestion des infrastructures IT. En comprenant les concepts de base de la création et de la configuration des machines virtuelles, vous pouvez exploiter pleinement les capacités de VirtualBox pour répondre à vos besoins informatiques.
+
+
+
+
+
+
+ 
+
+
+
 
 
 
