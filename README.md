@@ -79,7 +79,7 @@ This repository is a collection of notes, code snippets, and other resources tha
 		- **Conclusion**
 
   			La virtualisation est une technologie puissante qui permet de maximiser l'utilisation des ressources matérielles, d'améliorer la flexibilité et de simplifier la gestion des environnements informatiques. En comprenant les différents composants et types de virtualisation, ainsi que les rôles des hyperviseurs, les professionnels de l'informatique peuvent mieux tirer parti de cette technologie pour répondre aux besoins de leurs organisations.
-
+	  </details>
  	- <details>
 		<summary>
 			Part 3 Virtualisation et Containerisation - Bases de Virtual Box
@@ -120,15 +120,69 @@ This repository is a collection of notes, code snippets, and other resources tha
 		- **Conclusion**: VirtualBox est un outil puissant et flexible pour créer et gérer des environnements virtuels. Il permet d'exécuter plusieurs systèmes d'exploitation sur une seule machine physique, facilitant ainsi les tests, le développement et la gestion des infrastructures IT. En comprenant les concepts de base de la création et de la configuration des machines virtuelles, vous pouvez exploiter pleinement les capacités de VirtualBox pour répondre à vos besoins informatiques.
 
 
+	  </details>	 
 
 
-
-
+ 	- <details>
+		<summary>
+			Part 4 - DOCKER Part 1
+		</summary>
  
+		- **Introduction à Docker**: Docker est une plateforme open-source qui automatise le déploiement d'applications dans des conteneurs logiciels. Ces conteneurs sont des environnements légers et portables qui contiennent tout ce dont une application a besoin pour fonctionner : code, runtime, outils système, bibliothèques et paramètres.
+		- **Historique et Évolution**: Docker a été initialement développé par une entreprise française sous le nom de DotCloud en 2013. Le projet a rapidement gagné en popularité grâce à sa simplicité d'utilisation et à sa capacité à isoler les applications de manière efficace. Docker a révolutionné la virtualisation des applications en introduisant un moyen plus léger et plus portable de déployer des applications comparé aux machines virtuelles traditionnelles.
+  		- **Conteneurisation vs Virtualisation**: La virtualisation traditionnelle utilise des hyperviseurs pour créer des machines virtuelles (VM), chaque VM ayant son propre système d'exploitation, ce qui peut consommer beaucoup de ressources. En revanche, Docker utilise la conteneurisation, où les conteneurs partagent le même noyau du système d'exploitation hôte mais sont isolés les uns des autres.
+
+			**Avantages de la conteneurisation**
+ 
+			1. **Performance améliorée**: Les conteneurs sont plus légers et démarrent plus rapidement que les machines virtuelles.
+			2. **Efficacité des ressources**: Les conteneurs consomment moins de CPU, de mémoire et de stockage.
+			3. **Portabilité**: Les conteneurs peuvent être déployés facilement sur n'importe quel environnement qui supporte Docker.
+			4. **Isolation**: Chaque conteneur fonctionne indépendamment, ce qui réduit les conflits entre les dépendances des applications.
+
+		- **Fonctionnement de Docker**: Docker fonctionne grâce à deux composants principaux : Docker Engine et Docker Hub.
+ 
+			**Docker Engine**
+    			Docker Engine est le moteur de conteneurisation qui crée et gère les conteneurs. Il utilise les fonctionnalités du noyau Linux, telles que les cgroups et les namespaces, pour isoler les conteneurs et contrôler leurs ressources.
+
+			**Docker Hub**
+			Docker Hub est un registre public où les développeurs peuvent partager et distribuer des images Docker. Il permet de stocker et de récupérer des images Docker, facilitant ainsi la distribution et le déploiement des applications.
+
+		- **Création et Gestion des Conteneurs**
+ 
+			1. **Dockerfile**: Les développeurs définissent les dépendances et les instructions de configuration pour leur application dans un fichier nommé Dockerfile. Ce fichier contient toutes les commandes nécessaires pour assembler une image Docker.
+			2. **Construction de l'image**: À partir du Dockerfile, une image Docker est construite en utilisant la commande docker build. Cette image contient tout ce dont l'application a besoin pour fonctionner.
+			3. **Exécution du conteneur**: Une fois l'image construite, elle peut être exécutée en tant que conteneur avec la commande docker run. Chaque conteneur est une instance en cours d'exécution de l'image.
+
+		- **Déploiement des Applications avec Docker**
+			1. **Création de l'image**: Le développeur crée une image Docker à partir du Dockerfile.
+			2. **Publication de l'image**: L'image est poussée sur Docker Hub ou un registre privé en utilisant `docker push`.
+			3. **Téléchargement de l'image**: L'image est téléchargée sur la machine hôte avec `docker pull`.
+			4. **Exécution de l'image**: L'image est exécutée en tant que conteneur avec `docker run`.
+
+		- **Comparaison entre les Machines Virtuelles et les Conteneurs**
+
+			| Aspect	 | Machines Virtuelles	 | Conteneurs Docker |
+			| :---------- | :----------- | :----------- |
+			| **Démarrage**      |   Lent    |        Rapide |
+			| **Consommation de Ressources** |	Élevée |	Faible |
+			| **Isolation** |	Complète (niveau OS) |	Processus isolés (partage du noyau) |
+			| **Portabilité** |	Moins portable (dépend du hyperviseur) |	Très portable (indépendant de l'OS) |
+			| **Gestion des Dépendances** |	Complexe |	Simplifiée (tout inclus dans l'image) |
+
+		- **Conclusion**: Docker est une technologie puissante qui simplifie le déploiement, la gestion et la portabilité des applications. En utilisant des conteneurs, les développeurs et les administrateurs système peuvent créer des environnements isolés pour chaque application, améliorant ainsi les performances, l'efficacité des ressources et la portabilité. Docker continue de jouer un rôle crucial dans l'évolution des infrastructures IT modernes, particulièrement dans les environnements cloud et DevOps.
 
 
 
 
+
+
+
+
+
+
+
+
+	  </details>
 
 
 
@@ -148,4 +202,4 @@ This repository is a collection of notes, code snippets, and other resources tha
 
 
 
-	  </details>	 	
+	
