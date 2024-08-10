@@ -90,7 +90,9 @@ A container is a lightweight, stand-alone, and executable software package that 
 	- **Union Filesystem**: This allows container layers to be stacked, and changes to the filesystem can be made in a new layer without altering the layers below.
 
 <div align="center">
+	
 ![layers](https://github.com/user-attachments/assets/850790b7-4392-47b8-995c-9f8964ce27c5)
+
 </div>
 
 2. **Container Runtime:**
@@ -142,9 +144,17 @@ A container is a lightweight, stand-alone, and executable software package that 
 	- **UTS Namespace**: Isolates hostname and domain name, so each container can have its own hostname.
 	- **IPC Namespace**: Isolates interprocess communication mechanisms, like message queues.
 	- **USER Namespace**: Isolates user and group IDs, so users in a container can be mapped to different users on the host.
-   		
+   
+		![user-namespaces](https://github.com/user-attachments/assets/e09b4235-b8d4-4534-b1ff-b7f2512a3fac)
 
 
+---
+
+<div align="center">
+	
+![how-to-namespace](https://github.com/user-attachments/assets/6d2fd466-e911-4ea4-a8c1-14867ff6772c)
+
+</div>
 
 
 ## Tools
