@@ -108,6 +108,8 @@ A container is a lightweight, stand-alone, and executable software package that 
 
 ![containers-are-processes](https://github.com/user-attachments/assets/63742f7a-4743-4c82-9d22-bc5b8e8117dd)
 
+---
+
 ![kernel-features](https://github.com/user-attachments/assets/1bea7820-d908-4a1c-a92a-13c95e77505b)
 
 </div>
@@ -115,15 +117,32 @@ A container is a lightweight, stand-alone, and executable software package that 
 3. **Pivot Root:**
 	- Pivot Root is a Linux kernel feature that allows a process to change its root filesystem. This is used in containers to isolate the filesystem of the container from the host system.
 
+		![pivot-root](https://github.com/user-attachments/assets/4e9d3619-87d9-43ea-9bad-9ac6ad32a842)
+
+
 4. **Namespaces:**
-	- Namespaces provide the first layer of isolation in containers. They ensure that each container has its own isolated instance of global system resources.
-	- **Types of Namespaces:
-		- **PID Namespace**: Isolates process IDs (PIDs), so processes in a container are independent of those in another container or the host.
-		- **NET Namespace**: Isolates network interfaces, IP addresses, and routing tables.
-		- **MNT Namespace**: Isolates mount points, allowing containers to have their own filesystem.
-		- **UTS Namespace**: Isolates hostname and domain name, so each container can have its own hostname.
-		- **IPC Namespace**: Isolates interprocess communication mechanisms, like message queues.
-		- **USER Namespace**: Isolates user and group IDs, so users in a container can be mapped to different users on the host.
+	- Namespaces provide the first layer of isolation in containers. They ensure that each container has its own isolated instance of global system resources.   
+<div align="center">
+	
+![namespaces](https://github.com/user-attachments/assets/0a6cccb0-9bd9-439e-bcc9-15ef2634f4d4)
+
+</div>
+
+- **Types of Namespaces**:
+	- **PID Namespace**: Isolates process IDs (PIDs), so processes in a container are independent of those in another container or the host.
+ 
+		![pid-namespaces](https://github.com/user-attachments/assets/d6e9ba29-d006-4c75-a9c2-520c85e51c4e)
+
+
+  	- **NET Namespace**: Isolates network interfaces, IP addresses, and routing tables.
+
+  	  	![network-namespaces](https://github.com/user-attachments/assets/87a85518-2624-4906-916b-d2ebd609ed62)
+
+	- **MNT Namespace**: Isolates mount points, allowing containers to have their own filesystem.
+	- **UTS Namespace**: Isolates hostname and domain name, so each container can have its own hostname.
+	- **IPC Namespace**: Isolates interprocess communication mechanisms, like message queues.
+	- **USER Namespace**: Isolates user and group IDs, so users in a container can be mapped to different users on the host.
+   		
 
 
 
