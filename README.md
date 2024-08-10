@@ -71,7 +71,12 @@ A container is a lightweight, stand-alone, and executable software package that 
 	- **Layers**: Each layer in a container image represents a filesystem change (like installing software or adding files). Layers are cached, so reusing layers can make building containers faster.
 	- **Union Filesystem**: This allows container layers to be stacked, and changes to the filesystem can be made in a new layer without altering the layers below.
 
-
+2. **Container Runtime:**
+	- The container runtime is the software that executes containers. The most popular runtime is Docker, which manages the entire lifecycle of containers from creation, starting, stopping, and destroying.
+	- **Docker Engine**: The core part of Docker that runs containers. It consists of three main components:
+		- **Docker Daemon**: Manages the containers on the host system.
+		- **REST API**: Allows communication with the Docker Daemon via a client.
+		- **Docker CLI**: A command-line tool to interact with Docker.
 
 
 
