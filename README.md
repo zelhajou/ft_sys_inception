@@ -41,7 +41,7 @@ This project is designed to push your understanding of system administration and
 
 A container is a lightweight, stand-alone, and executable software package that includes everything needed to run a piece of software, including the code, runtime, system tools, libraries, and settings. Containers leverage the host operating system's kernel, making them more efficient than traditional virtual machines (VMs), which require a full OS instance for each application.
 
-
+- [OFFICIAL - What is a container? ](https://www.docker.com/resources/what-container/)
 - [IBM Technology - Containerization Explained](https://youtu.be/0qotVMX-J5s)
 - [IBM Technology - Virtualization Explained](https://youtu.be/FZR0rG3HKIk)
 - [IBM Technology - Containers vs VMs: What's the difference?](https://youtu.be/cjXI-yxqGTI)
