@@ -77,12 +77,15 @@ A container is a lightweight, stand-alone, and executable software package that 
 
 
 
+
+
 #### Key Concepts in Containers
 <div align="center">
 	
 ![big-idea-every-dependency](https://github.com/user-attachments/assets/6905ac47-9877-4a4c-8761-66c2d1159417)
 
 </div>
+
 
 1. **Container Images:**
 	- A container image is a static snapshot that contains all the dependencies and configurations needed to run a containerized application. It's built from a series of layers, where each layer represents a change or instruction in the Dockerfile.
@@ -116,11 +119,14 @@ A container is a lightweight, stand-alone, and executable software package that 
 
 </div>
 
-3. **Pivot Root:**
-	- Pivot Root is a Linux kernel feature that allows a process to change its root filesystem. This is used in containers to isolate the filesystem of the container from the host system.
 
-		![pivot-root](https://github.com/user-attachments/assets/4e9d3619-87d9-43ea-9bad-9ac6ad32a842)
 
+
+3. **Linux Containers (LXC)**
+	- Linux Containers (LXC) is a containerization technology that uses Linux kernel features like cgroups and namespaces to provide an isolated environment for applications. It is the foundation for Docker and other container platforms.
+	- **Cgroups (Control Groups)**: A Linux kernel feature that limits, accounts for, and isolates the resource usage of a process group. It allows you to allocate resources like CPU, memory, disk I/O, and network bandwidth to containers.
+	- **Namespaces**: A Linux kernel feature that isolates system resources like process IDs, network interfaces, and filesystems. Namespaces ensure that each container has its own isolated instance of global system resources.
+	- **Union Filesystems**: A method of combining multiple directories into a single directory that appears to contain only their unique files. This allows for layering in container images and efficient use of disk space.
 
 4. **Namespaces:**
 	- Namespaces provide the first layer of isolation in containers. They ensure that each container has its own isolated instance of global system resources.   
@@ -135,7 +141,6 @@ A container is a lightweight, stand-alone, and executable software package that 
  
 		![pid-namespaces](https://github.com/user-attachments/assets/d6e9ba29-d006-4c75-a9c2-520c85e51c4e)
 
-
   	- **NET Namespace**: Isolates network interfaces, IP addresses, and routing tables.
 
   	  	![network-namespaces](https://github.com/user-attachments/assets/87a85518-2624-4906-916b-d2ebd609ed62)
@@ -147,7 +152,6 @@ A container is a lightweight, stand-alone, and executable software package that 
    
 		![user-namespaces](https://github.com/user-attachments/assets/e09b4235-b8d4-4534-b1ff-b7f2512a3fac)
 
-
 ---
 
 <div align="center">
@@ -156,7 +160,6 @@ A container is a lightweight, stand-alone, and executable software package that 
 
 </div>
 
-
 5. **Control Groups (cgroups):**
 	- Cgroups are used to limit, account for, and isolate the resource usage of process groups. They allow the allocation of CPU, memory, disk I/O, and network bandwidth to containers.
 	- **Resource Limits**: Cgroups ensure that containers do not consume more than the allocated resources, protecting the host system from being overwhelmed by any single container.
@@ -164,7 +167,12 @@ A container is a lightweight, stand-alone, and executable software package that 
 	![cgroups](https://github.com/user-attachments/assets/6912fdef-687c-476b-80de-f3a62496fb91)
 
 
-- [Live Code: Understanding Container Internals](https://youtu.be/9ivFrXgB2Zg)
+The combination of namespaces and cgroups provides the foundation for containerization, allowing containers to be isolated from each other and the host system.
+
+- This is a good video that implements the concept of namespaces and cgroups in a simple way [Live Code: Understanding Container Internals](https://youtu.be/9ivFrXgB2Zg)
+
+6. **Container Networking:**
+
 
 ## Tools
 
