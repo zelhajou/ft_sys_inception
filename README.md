@@ -160,8 +160,9 @@ A container is a lightweight, stand-alone, and executable software package that 
 5. **Control Groups (cgroups):**
 	- Cgroups are used to limit, account for, and isolate the resource usage of process groups. They allow the allocation of CPU, memory, disk I/O, and network bandwidth to containers.
 	- **Resource Limits**: Cgroups ensure that containers do not consume more than the allocated resources, protecting the host system from being overwhelmed by any single container.
-
 	
+	![cgroups](https://github.com/user-attachments/assets/6912fdef-687c-476b-80de-f3a62496fb91)
+
 
 
 
