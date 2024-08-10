@@ -164,7 +164,7 @@ A container is a lightweight, stand-alone, and executable software package that 
 	![cgroups](https://github.com/user-attachments/assets/6912fdef-687c-476b-80de-f3a62496fb91)
 
 
-
+- [Live Code: Understanding Container Internals](https://youtu.be/9ivFrXgB2Zg)
 
 ## Tools
 
