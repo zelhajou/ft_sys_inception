@@ -1,16 +1,87 @@
 # Inception
 
+## Project Overview
 
-## Introduction
+- **Objective:** The main goal of this project is to have you set up a small infrastructure composed of various services running inside Docker containers. This infrastructure will simulate a real-world environment where different services interact with each other within a virtualized environment.
 
-This repository is a collection of notes, code snippets, and other resources that I have gathered over time. It is a work in progress and will be updated as I learn new things.
+- **Key Components:**
+	1. **Virtual Machine:** The entire project must be executed within a Virtual Machine (VM). This ensures that the environment is controlled and isolated from the host system.
+	2. **Docker Containers:**
+		- You will be creating multiple Docker containers, each dedicated to a specific service.
+		- **Services Required:**
+			- **NGINX** with TLSv1.2 or TLSv1.3
+			- **WordPress** with php-fpm (without NGINX)
+			- **MariaDB (a popular database system)**
+		- Each service must have its Dockerfile, and the Docker images must be built by you using Docker Compose. It is forbidden to use pre-built images from sources like DockerHub (with the exception of Alpine or Debian as base images).
+	3. **Volumes and Networking:**
+		- You will set up Docker volumes to persist data, particularly for the WordPress database and website files.
+		- A custom Docker network must be created to allow the containers to communicate with each other securely.
+	4. **Domain Configuration:**
+		- You must configure a domain name that points to your local IP address. This domain will be in the format `login.42.fr`, where "login" is your own username.
+	5. **Security and Best Practices:**
+		- Environment variables must be used for sensitive data such as passwords, which should be stored in a `.env` file.
+		- The NGINX container should be the only entry point to your infrastructure, serving traffic over HTTPS via port 443.
 
-## Table of Contents
+- **Bonus Objectives:**
+	- If you successfully complete the mandatory tasks perfectly, you can also add extra services as part of a bonus. These can include setting up:
+		- A Redis cache for WordPress.
+		- An FTP server.
+		- A simple static website (excluding PHP).
+		- Adminer, a database management tool.
+		- Any other service you deem useful, provided you can justify its inclusion.
+- **Conclusion**:
+This project is designed to push your understanding of system administration and Docker. It requires a strong grasp of Docker best practices, an understanding of network configuration, and careful management of environment variables and sensitive data. The project mimics the complexities of a real-world deployment scenario, ensuring that by the end, you have hands-on experience in managing and deploying containerized applications.
+
+
+## Prerequisites and Explanations
+
+### Deep Dive into Containers
+
+#### What is a Container?
+
+A container is a lightweight, stand-alone, and executable software package that includes everything needed to run a piece of software, including the code, runtime, system tools, libraries, and settings. Containers leverage the host operating system's kernel, making them more efficient than traditional virtual machines (VMs), which require a full OS instance for each application.
+
+
+- [IBM Technology - Containerization Explained](https://youtu.be/0qotVMX-J5s)
+- [IBM Technology - Virtualization Explained](https://youtu.be/FZR0rG3HKIk)
+- [IBM Technology - Containers vs VMs: What's the difference?](https://youtu.be/cjXI-yxqGTI)
+
+- [Virtual Machines vs Containers](https://youtu.be/eyNBf1sqdBQ)
+- [VMware Cloud Native Apps - Intro to Containers](https://www.youtube.com/playlist?list=PL7bmigfV0EqQt5_pBPQ8tsZjI1w68-e0H)
+- [Tiny Technical Tutorial - Containers in AWS | For Absolute Beginners](https://youtu.be/NI34uF7VVP8)
+- [Metwally Labs - Container Stroy [AR]](https://youtu.be/jPzJVH1ab-4)
+
+#### How Containers Differ from Virtual Machines
+
+1. **Resource Efficiency:**
+	- **Containers** share the host OS kernel and isolate the application processes from the rest of the system, allowing for multiple containers to run on the same host without the overhead of multiple operating systems.
+	- **Virtual Machines** (VMs), on the other hand, include a full copy of an operating system and a hypervisor layer, which requires more system resources.
+2. **Isolation:**
+	- **Containers** provide process-level isolation. Each container operates in its own isolated user space but shares the OS kernel with other containers.
+	- **VMs** provide hardware-level isolation, where each VM is fully isolated from others at the hardware level, with its own OS and kernel.
+3. **Portability:**
+	- **Containers** are highly portable due to their lightweight nature. They can run on any system that has a container runtime (like Docker) without the need to adjust for different environments.
+	- **VMs** are less portable since they are tied to the specific hypervisor and OS configuration.
+
+
+#### Key Concepts in Containers
+
+1. **Container Images:**
+	- A container image is a static snapshot that contains all the dependencies and configurations needed to run a containerized application. It's built from a series of layers, where each layer represents a change or instruction in the Dockerfile.
+	- **Layers**: Each layer in a container image represents a filesystem change (like installing software or adding files). Layers are cached, so reusing layers can make building containers faster.
+	- **Union Filesystem**: This allows container layers to be stacked, and changes to the filesystem can be made in a new layer without altering the layers below.
+
+
+
+
+
+
+
 
 
 ## Tools
 
-- https://labs.play-with-docker.com/
+- [https://labs.play-with-docker.com/](https://labs.play-with-docker.com/) :  
 
 
 
