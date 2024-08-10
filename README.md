@@ -112,6 +112,19 @@ A container is a lightweight, stand-alone, and executable software package that 
 
 </div>
 
+3. **Pivot Root:**
+	- Pivot Root is a Linux kernel feature that allows a process to change its root filesystem. This is used in containers to isolate the filesystem of the container from the host system.
+
+4. **Namespaces:**
+	- Namespaces provide the first layer of isolation in containers. They ensure that each container has its own isolated instance of global system resources.
+	- **Types of Namespaces:
+		- **PID Namespace**: Isolates process IDs (PIDs), so processes in a container are independent of those in another container or the host.
+		- **NET Namespace**: Isolates network interfaces, IP addresses, and routing tables.
+		- **MNT Namespace**: Isolates mount points, allowing containers to have their own filesystem.
+		- **UTS Namespace**: Isolates hostname and domain name, so each container can have its own hostname.
+		- **IPC Namespace**: Isolates interprocess communication mechanisms, like message queues.
+		- **USER Namespace**: Isolates user and group IDs, so users in a container can be mapped to different users on the host.
+
 
 
 
