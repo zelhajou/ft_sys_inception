@@ -41,8 +41,11 @@ This project is designed to push your understanding of system administration and
 
 A container is a lightweight, stand-alone, and executable software package that includes everything needed to run a piece of software, including the code, runtime, system tools, libraries, and settings. Containers leverage the host operating system's kernel, making them more efficient than traditional virtual machines (VMs), which require a full OS instance for each application.
 
+<div align="center">
+	
 ![why-containers](https://github.com/user-attachments/assets/508629cd-5bed-4ca3-9223-2bad4a2e824d)
 
+</div>
 
 - [OFFICIAL - What is a container? ](https://www.docker.com/resources/what-container/)
 - [IBM Technology - Containerization Explained](https://youtu.be/0qotVMX-J5s)
@@ -56,8 +59,11 @@ A container is a lightweight, stand-alone, and executable software package that 
 
 #### How Containers Differ from Virtual Machines
 
+<div align="center">
+	
 ![1_QAP008mUYPODZMEBb6Wpdg](https://github.com/user-attachments/assets/1859cf1d-094d-443a-89b7-2dbcf4e6f39d)
 
+</div>
 
 1. **Resource Efficiency:**
 	- **Containers** share the host OS kernel and isolate the application processes from the rest of the system, allowing for multiple containers to run on the same host without the overhead of multiple operating systems.
@@ -72,14 +78,20 @@ A container is a lightweight, stand-alone, and executable software package that 
 
 
 #### Key Concepts in Containers
+<div align="center">
+	
+![big-idea-every-dependency](https://github.com/user-attachments/assets/6905ac47-9877-4a4c-8761-66c2d1159417)
+
+</div>
 
 1. **Container Images:**
 	- A container image is a static snapshot that contains all the dependencies and configurations needed to run a containerized application. It's built from a series of layers, where each layer represents a change or instruction in the Dockerfile.
 	- **Layers**: Each layer in a container image represents a filesystem change (like installing software or adding files). Layers are cached, so reusing layers can make building containers faster.
 	- **Union Filesystem**: This allows container layers to be stacked, and changes to the filesystem can be made in a new layer without altering the layers below.
 
+<div align="center">
 ![layers](https://github.com/user-attachments/assets/850790b7-4392-47b8-995c-9f8964ce27c5)
-
+</div>
 
 2. **Container Runtime:**
 	- The container runtime is the software that executes containers. The most popular runtime is Docker, which manages the entire lifecycle of containers from creation, starting, stopping, and destroying.
@@ -90,7 +102,15 @@ A container is a lightweight, stand-alone, and executable software package that 
 
 ![1_c3AiZFHuib7FUGyINzkEag](https://github.com/user-attachments/assets/98d3fe07-2a59-48f4-90f8-0e955d83c690)
 
+---
 
+<div align="center">
+
+![containers-are-processes](https://github.com/user-attachments/assets/63742f7a-4743-4c82-9d22-bc5b8e8117dd)
+
+![kernel-features](https://github.com/user-attachments/assets/1bea7820-d908-4a1c-a92a-13c95e77505b)
+
+</div>
 
 
 
