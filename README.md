@@ -53,6 +53,9 @@ A container is a lightweight, stand-alone, and executable software package that 
 
 #### How Containers Differ from Virtual Machines
 
+![1_QAP008mUYPODZMEBb6Wpdg](https://github.com/user-attachments/assets/1859cf1d-094d-443a-89b7-2dbcf4e6f39d)
+
+
 1. **Resource Efficiency:**
 	- **Containers** share the host OS kernel and isolate the application processes from the rest of the system, allowing for multiple containers to run on the same host without the overhead of multiple operating systems.
 	- **Virtual Machines** (VMs), on the other hand, include a full copy of an operating system and a hypervisor layer, which requires more system resources.
@@ -64,12 +67,16 @@ A container is a lightweight, stand-alone, and executable software package that 
 	- **VMs** are less portable since they are tied to the specific hypervisor and OS configuration.
 
 
+
 #### Key Concepts in Containers
 
 1. **Container Images:**
 	- A container image is a static snapshot that contains all the dependencies and configurations needed to run a containerized application. It's built from a series of layers, where each layer represents a change or instruction in the Dockerfile.
 	- **Layers**: Each layer in a container image represents a filesystem change (like installing software or adding files). Layers are cached, so reusing layers can make building containers faster.
 	- **Union Filesystem**: This allows container layers to be stacked, and changes to the filesystem can be made in a new layer without altering the layers below.
+
+![layers](https://github.com/user-attachments/assets/850790b7-4392-47b8-995c-9f8964ce27c5)
+
 
 2. **Container Runtime:**
 	- The container runtime is the software that executes containers. The most popular runtime is Docker, which manages the entire lifecycle of containers from creation, starting, stopping, and destroying.
@@ -78,6 +85,7 @@ A container is a lightweight, stand-alone, and executable software package that 
 		- **REST API**: Allows communication with the Docker Daemon via a client.
 		- **Docker CLI**: A command-line tool to interact with Docker.
 
+![1_c3AiZFHuib7FUGyINzkEag](https://github.com/user-attachments/assets/98d3fe07-2a59-48f4-90f8-0e955d83c690)
 
 
 
