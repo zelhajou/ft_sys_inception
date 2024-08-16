@@ -1,3 +1,6 @@
+
+![ascii-text-art (2)](https://github.com/user-attachments/assets/4e511c34-43f2-4d33-8186-a66a68d668aa)
+
 # Inception
 
 ## Project Overview
