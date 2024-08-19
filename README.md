@@ -175,6 +175,36 @@ The combination of namespaces and cgroups provides the foundation for containeri
 - This is a good video that implements the concept of namespaces and cgroups in a simple way [Live Code: Understanding Container Internals](https://youtu.be/9ivFrXgB2Zg)
 
 6. **Container Networking:**
+- Containers can be networked together, isolated, or connected to external networks.
+- **Docker Networking Modes**:
+	- **Bridge Mode**: The default mode, where containers are connected to a private internal network and communicate via the host machine.
+	- **Host Mode**: The container shares the host machine's network stack, which can lead to performance improvements but less isolation.
+	- **Overlay Network**: Used for multi-host networking, allowing containers across different hosts to communicate securely.
+
+7. **Volumes and Persistent Storage**:
+
+- Containers are ephemeral, meaning any data written inside a container’s filesystem is lost when the container is stopped or destroyed. To persist data, Docker uses volumes.
+- **Volumes**: A volume is a directory or a file outside of the container’s filesystem that remains intact across container restarts. Volumes are stored on the host machine and can be shared between containers.
+- **Bind Mounts**: A specific type of volume where a host directory is mounted directly into a container.
+
+8. **Orchestration**:
+- When dealing with multiple containers that need to work together, orchestration tools are used to manage container deployment, scaling, and networking.
+- **Docker Compose**: A tool for defining and running multi-container Docker applications. With a single YAML file, you can configure all the services your application needs.
+- **Kubernetes**: A powerful open-source system for automating the deployment, scaling, and management of containerized applications across clusters of hosts.
+
+
+### Understanding Docker
+
+#### What is Docker?
+
+Docker is an open-source platform that automates the deployment of applications inside lightweight, portable containers. It abstracts away many of the complexities involved in managing different environments, allowing developers to focus on writing code that works consistently from development to production.
+
+
+
+
+
+
+
 
 
 ## Tools
