@@ -375,17 +375,6 @@ Docker is an open-source platform that automates the deployment of applications 
 
 		- **Conclusion**: Docker est une technologie puissante qui simplifie le déploiement, la gestion et la portabilité des applications. En utilisant des conteneurs, les développeurs et les administrateurs système peuvent créer des environnements isolés pour chaque application, améliorant ainsi les performances, l'efficacité des ressources et la portabilité. Docker continue de jouer un rôle crucial dans l'évolution des infrastructures IT modernes, particulièrement dans les environnements cloud et DevOps.
 
-
-
-
-
-
-
-
-
-
-
-
 	  </details>
 
 
@@ -393,7 +382,11 @@ Docker is an open-source platform that automates the deployment of applications 
 
 
 
+[Online Docker Training Course | KodeKloud](https://kodekloud.com/learning-path-devops-basics/)
 
+[Github - DevOps-exercises](https://github.com/bregman-arie/devops-exercises)
+
+[90DaysOfDevOps](https://github.com/MichaelCade/90DaysOfDevOps)
 
 		
 
