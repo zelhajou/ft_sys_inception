@@ -381,6 +381,8 @@ Docker is an open-source platform that automates the deployment of applications 
 
 ---
 
+**DevOps**
+
 
 [Online Docker Training Course | KodeKloud](https://kodekloud.com/learning-path-devops-basics/)
 
