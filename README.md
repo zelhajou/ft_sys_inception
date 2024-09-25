@@ -200,7 +200,11 @@ The combination of namespaces and cgroups provides the foundation for containeri
 Docker is an open-source platform that automates the deployment of applications inside lightweight, portable containers. It abstracts away many of the complexities involved in managing different environments, allowing developers to focus on writing code that works consistently from development to production.
 
 
+```
+sudo systemctl enable docker.service
+sudo systemctl enable containerd.service
 
+```
 
 
 
