@@ -222,7 +222,7 @@ sudo systemctl enable containerd.service
 - [ Youtube - Professeur Mohamed YOUSSFI - Virtualisation et Containérisation : VirtualBox DOCKER KUBERNETES](https://youtube.com/playlist?list=PLxr551TUsmApVwBMzhtLqrWqcKQs4sh19&si=W0Y5nBVF4gC4Hi5k)
  	- <details>
 		<summary>
-			Part 1 Virtualisation et Containerisation Docker - Retour sur Architecture de Base des Ordinateurs
+			Partie 1 Virtualisation et Containerisation Docker - Retour sur Architecture de Base des Ordinateurs
 		</summary>
 		
 		- **Fonctionnement de base des ordinateurs**: Les ordinateurs sont composés de deux parties principales : le matériel (hardware) et le logiciel (software). Le matériel inclut tous les composants physiques de l'ordinateur, tels que le microprocesseur (CPU), la mémoire vive (RAM), et les dispositifs de stockage comme les disques durs. Le logiciel, quant à lui, est constitué des programmes et des systèmes d'exploitation qui dirigent le matériel pour effectuer des tâches spécifiques.
@@ -243,7 +243,7 @@ sudo systemctl enable containerd.service
 
  	- <details>
 		<summary>
-			Part 2 Virtualisation et Containerisation - Bases de la virtualisation
+			Partie 2 Virtualisation et Containerisation - Bases de la virtualisation
 		</summary>
   		
 		- **Introduction à la virtualisation**: La virtualisation est une technologie qui permet de créer plusieurs environnements virtuels sur une seule machine physique. Cette technologie a révolutionné l'informatique moderne en permettant une utilisation plus efficace des ressources matérielles et en offrant une flexibilité accrue pour l'exécution de différents systèmes d'exploitation et applications.
@@ -290,7 +290,7 @@ sudo systemctl enable containerd.service
 	  </details>
  	- <details>
 		<summary>
-			Part 3 Virtualisation et Containerisation - Bases de Virtual Box
+			Partie 3 Virtualisation et Containerisation - Bases de Virtual Box
 		</summary>
  
 	  	- **Introduction à la virtualisation**: La virtualisation est une technologie qui permet de créer plusieurs environnements virtuels sur une seule machine physique. Cette technologie a révolutionné l'informatique moderne en permettant une utilisation plus efficace des ressources matérielles et en offrant une flexibilité accrue pour l'exécution de différents systèmes d'exploitation et applications.
@@ -333,7 +333,7 @@ sudo systemctl enable containerd.service
 
  	- <details>
 		<summary>
-			Part 4 - DOCKER Part 1
+			Partie 4 - DOCKER Part 1
 		</summary>
  
 		- **Introduction à Docker**: Docker est une plateforme open-source qui automatise le déploiement d'applications dans des conteneurs logiciels. Ces conteneurs sont des environnements légers et portables qui contiennent tout ce dont une application a besoin pour fonctionner : code, runtime, outils système, bibliothèques et paramètres.
