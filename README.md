@@ -382,8 +382,164 @@ sudo systemctl enable containerd.service
 	  </details>
 
 
+ 	- <details>
+		<summary>
+			Partie 5 - DOCKER Partie 2
+		</summary>
+ 
+		## Article éducatif : Installation de Docker sur une machine virtuelle Ubuntu
 
----
+		### Introduction
+		Docker est une plateforme logicielle qui permet de créer, tester et déployer des applications dans des conteneurs, des environnements isolés légers et portables. Dans cet article, nous verrons comment installer Docker sur une machine virtuelle (VM) Ubuntu, en utilisant un serveur sans interface graphique (desktop), ainsi que les configurations réseau nécessaires pour une utilisation optimale.
+
+		### Préparation de l'environnement
+		#### Choix du système d'exploitation
+		Il est recommandé d'installer Docker sur un système d'exploitation serveur comme **Ubuntu Server**. Contrairement aux versions "desktop" d'Ubuntu, les versions serveur sont optimisées pour des performances et une gestion des ressources plus efficaces, sans l'utilisation d'une interface graphique lourde.
+
+		#### Vérification des versions
+		Avant d'installer Docker, il est important de vérifier que votre version d'Ubuntu est compatible. Docker nécessite au minimum **Ubuntu 18.04** ou supérieur. Les anciennes versions comme Ubuntu 16.04 ne sont pas supportées.
+
+		### Installation de Docker
+		#### Documentation officielle
+		La documentation officielle de Docker fournit toutes les étapes nécessaires pour l’installation. Vous pouvez y accéder sur [docs.docker.com](https://docs.docker.com). Assurez-vous de choisir le bon système d’exploitation et de respecter les prérequis en termes de versions et de configuration système.
+
+		#### Étapes d'installation
+		1. **Mettre à jour le système** : Avant d'installer Docker, assurez-vous que votre système est à jour en exécutant les commandes suivantes :
+		```bash
+		sudo apt-get update
+		sudo apt-get upgrade
+		```
+
+		2. **Installer Docker** : Utilisez ensuite les commandes suivantes pour installer Docker :
+		```bash
+		sudo apt-get install docker.io
+		```
+
+		3. **Vérifier l'installation** : Une fois installé, vérifiez que Docker fonctionne correctement avec la commande :
+		```bash
+		sudo systemctl status docker
+		```
+
+		### Configuration réseau de la machine virtuelle
+		#### Mode NAT par défaut
+		Lorsque vous configurez une machine virtuelle, VirtualBox utilise le mode NAT (Network Address Translation) par défaut. Ce mode permet à votre machine virtuelle d'accéder à Internet via l'interface réseau de la machine hôte, sans être directement accessible depuis l'extérieur. Cela améliore la sécurité, mais limite les interactions entre les machines virtuelles.
+
+		#### Ajout d'une seconde interface réseau
+		Pour créer un réseau privé entre plusieurs machines virtuelles, vous pouvez ajouter une seconde interface réseau en mode "réseau interne" (Internal Network). Cela permet aux machines de communiquer entre elles tout en restant isolées du réseau externe.
+
+		1. **Configurer une interface réseau privée** : Dans VirtualBox, vous pouvez ajouter une interface privée en suivant ces étapes :
+		- Ouvrez les paramètres de la VM.
+		- Dans l'onglet Réseau, activez l’option "Adaptateur réseau interne".
+		- Assurez-vous que les machines virtuelles partagent le même réseau interne en spécifiant le même nom de réseau pour toutes.
+
+		2. **Vérification des adresses IP** : Utilisez la commande suivante pour vérifier l’adresse IP de la machine virtuelle :
+		```bash
+		ip addr show
+		```
+
+		3. **Ping entre machines** : Une fois le réseau privé configuré, vous pouvez tester la connectivité entre les machines virtuelles avec la commande `ping` :
+		```bash
+		ping 192.168.x.x
+		```
+
+		### Accès à distance via SSH
+		#### Installation du serveur SSH
+		Pour accéder à votre machine virtuelle Ubuntu depuis la machine hôte, vous devez installer et configurer le serveur SSH. Sur une version serveur d'Ubuntu, SSH est souvent installé par défaut. Cependant, si vous utilisez une version desktop, vous devrez l'installer manuellement :
+		```bash
+		sudo apt-get install openssh-server
+		```
+
+		#### Connexion via SSH
+		Une fois SSH installé, vous pouvez vous connecter à la machine virtuelle depuis votre machine hôte en utilisant un client SSH (comme PuTTY sous Windows) :
+		```bash
+		ssh user@192.168.x.x
+		```
+		Remplacez `user` par votre nom d’utilisateur et `192.168.x.x` par l’adresse IP de votre machine virtuelle.
+
+		### Conclusion
+		L’installation de Docker sur une machine virtuelle Ubuntu est une étape clé pour développer dans un environnement isolé et contrôlé. En configurant correctement les réseaux et en utilisant des connexions SSH pour l’administration, vous pouvez créer des environnements flexibles et sécurisés pour tester et déployer vos applications Docker.
+
+	  </details>
+
+ 	- <details>
+		<summary>
+			Partie 5 - DOCKER Partie 2
+		</summary>
+
+		## Article éducatif : Installation et Gestion de Docker
+
+		### Introduction
+		Docker est une plateforme populaire qui permet de créer, tester et déployer des applications dans des environnements isolés appelés conteneurs. Ces conteneurs sont légers, portables, et permettent d'exécuter des applications avec toutes leurs dépendances dans n'importe quel environnement. Dans cet article, nous allons explorer comment installer Docker sur un serveur Ubuntu, télécharger et gérer des images Docker, et comment utiliser des commandes clés comme `docker exec` pour interagir avec les conteneurs.
+
+		### Installation de Docker sur Ubuntu
+		#### Prérequis
+		Avant de commencer l’installation de Docker, il est important de s’assurer que votre système d'exploitation est compatible. Docker exige au minimum **Ubuntu 18.04** ou une version plus récente pour fonctionner correctement. Vous pouvez vérifier la version de votre système en utilisant la commande suivante :
+		```bash
+		lsb_release -a
+		```
+
+		#### Installation via un script
+		Pour simplifier l'installation, Docker fournit un script qui télécharge et installe Docker automatiquement. Cela évite les étapes manuelles complexes. Vous pouvez exécuter le script avec la commande suivante :
+		```bash
+		curl -fsSL https://get.docker.com -o get-docker.sh
+		sudo sh get-docker.sh
+		```
+		Ce script va s'occuper de toutes les dépendances nécessaires et installer Docker sur votre machine.
+
+		#### Vérification de l'installation
+		Après l'installation, vous pouvez vérifier que Docker fonctionne correctement en exécutant la commande suivante :
+		```bash
+		docker --version
+		```
+		Cela devrait afficher la version de Docker installée sur votre système.
+
+		### Gestion des images Docker
+		Une des forces de Docker est la capacité à télécharger et exécuter des images prêtes à l'emploi pour diverses applications. Une image Docker est un modèle pré-construit contenant une application et toutes ses dépendances.
+
+		#### Téléchargement d'une image Docker
+		Par exemple, pour télécharger une image de **MySQL** ou **Nginx**, vous pouvez utiliser la commande suivante :
+		```bash
+		docker pull mysql
+		```
+		Cette commande télécharge l'image de MySQL depuis le **Docker Hub**, un dépôt d'images Docker.
+
+		#### Exécution d'un conteneur
+		Après avoir téléchargé une image, vous pouvez l'exécuter en créant un conteneur. Par exemple, pour démarrer un serveur Nginx, vous utilisez la commande suivante :
+		```bash
+		docker run -d -p 8080:80 nginx
+		```
+		Cette commande lance Nginx dans un conteneur en mode détaché (`-d`), et mappe le port interne 80 du conteneur au port externe 8080 de la machine hôte (`-p 8080:80`). Vous pouvez ensuite accéder au serveur Nginx en visitant `http://localhost:8080` dans votre navigateur.
+
+		### Interagir avec des conteneurs : La commande `docker exec`
+		#### Mode interactif
+		Parfois, vous devez exécuter des commandes à l'intérieur d'un conteneur pour le configurer ou le déboguer. Cela est possible avec la commande `docker exec`. Par exemple, pour entrer dans un conteneur MySQL en cours d'exécution, vous pouvez utiliser :
+		```bash
+		docker exec -it <container_id> bash
+		```
+		L'option `-it` permet d'ouvrir une session interactive dans le terminal à l'intérieur du conteneur, ce qui est utile pour exécuter des commandes directement dans l'environnement du conteneur.
+
+		#### Exécution de commandes spécifiques
+		Vous pouvez également exécuter des commandes spécifiques à l'intérieur du conteneur sans ouvrir une session interactive. Par exemple, pour vérifier la version de MySQL dans un conteneur MySQL en cours d'exécution, utilisez :
+		```bash
+		docker exec <container_id> mysql --version
+		```
+
+		### Mapping des ports entre conteneurs et la machine hôte
+		#### Importance du mapping des ports
+		Lorsque vous exécutez une application dans un conteneur, celle-ci est isolée du réseau externe. Pour accéder à cette application depuis l'extérieur du conteneur (par exemple, via un navigateur ou une autre machine), il est nécessaire de mapper les ports internes du conteneur aux ports externes de la machine hôte. 
+
+		#### Exemple de mapping avec Nginx
+		Prenons l'exemple de l'exécution de Nginx dans un conteneur. Par défaut, Nginx utilise le port 80 à l'intérieur du conteneur. Cependant, pour rendre ce port accessible depuis l'extérieur, vous devez le mapper à un port de la machine hôte. Voici un exemple de commande pour mapper le port 80 interne du conteneur au port 8080 de la machine hôte :
+		```bash
+		docker run -d -p 8080:80 nginx
+		```
+		Vous pouvez ensuite accéder à Nginx en entrant l'adresse suivante dans un navigateur : `http://localhost:8080`.
+
+		### Conclusion
+		Docker facilite l'installation, la gestion et l'exécution d'applications en conteneur. Grâce à ses commandes simples, comme `docker pull` pour télécharger des images et `docker run` pour exécuter des conteneurs, Docker simplifie la gestion des applications. De plus, avec des commandes comme `docker exec` pour interagir directement avec les conteneurs, Docker offre une flexibilité exceptionnelle aux développeurs. Le mapping des ports est également crucial pour rendre les services accessibles à l'extérieur du conteneur, rendant Docker très puissant pour le développement et le déploiement d'applications.	
+	
+	 </details>
+
 
 **DevOps**
 
@@ -395,14 +551,3 @@ sudo systemctl enable containerd.service
 [90DaysOfDevOps](https://github.com/MichaelCade/90DaysOfDevOps)
 
 		
-
-
-
-
-
-
-
-
-
-
-	
