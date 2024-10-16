@@ -219,6 +219,8 @@ sudo systemctl enable containerd.service
 
 ## Resources
 
+### YouTube Summaries and Tutorials
+
 - [ Youtube - Professeur Mohamed YOUSSFI - Virtualisation et Containérisation : VirtualBox DOCKER KUBERNETES](https://youtube.com/playlist?list=PLxr551TUsmApVwBMzhtLqrWqcKQs4sh19&si=W0Y5nBVF4gC4Hi5k)
  	- <details>
 		<summary>
