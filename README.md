@@ -3,6 +3,30 @@
 
 # Inception
 
+## Table of Contents
+
+- [Project Overview](#project-overview)
+- [Deep Dive into Containers](#deep-dive-into-containers)
+	- [What is a Container?](#what-is-a-container)
+	- [How Containers Differ from Virtual Machines](#how-containers-differ-from-virtual-machines)
+	- [Key Concepts in Containers](#key-concepts-in-containers)
+		- [Container Images](#container-images)
+		- [Container Runtime](#container-runtime)
+		- [Linux Containers (LXC)](#linux-containers-lxc)
+		- [Namespaces](#namespaces)
+		- [Control Groups (cgroups)](#control-groups-cgroups)
+		- [Container Networking](#container-networking)
+		- [Volumes and Persistent Storage](#volumes-and-persistent-storage)
+		- [Orchestration](#orchestration)
+	- [Understanding Docker](#understanding-docker)
+		- [What is Docker?](#what-is-docker)
+- [Inception Setup and Configuration](#inception-setup-and-configuration)
+	- [Virtual Machine Setup](#virtual-machine-setup)
+- [Tools](#tools)
+- [Resources](#resources)
+	- [YouTube Summaries and Tutorials](#youtube-summaries-and-tutorials)
+
+
 ## Project Overview
 
 - **Objective:** The main goal of this project is to have you set up a small infrastructure composed of various services running inside Docker containers. This infrastructure will simulate a real-world environment where different services interact with each other within a virtualized environment.
@@ -36,7 +60,6 @@
 This project is designed to push your understanding of system administration and Docker. It requires a strong grasp of Docker best practices, an understanding of network configuration, and careful management of environment variables and sensitive data. The project mimics the complexities of a real-world deployment scenario, ensuring that by the end, you have hands-on experience in managing and deploying containerized applications.
 
 
-## Prerequisites and Explanations
 
 ### Deep Dive into Containers
 
@@ -199,12 +222,32 @@ The combination of namespaces and cgroups provides the foundation for containeri
 
 Docker is an open-source platform that automates the deployment of applications inside lightweight, portable containers. It abstracts away many of the complexities involved in managing different environments, allowing developers to focus on writing code that works consistently from development to production.
 
+### Docker Architecture
+
+Docker is built on a client-server architecture, which includes the following components:
+
+1. **Docker Daemon**: The Docker daemon (`dockerd`) is a persistent background process that manages Docker containers and images. It listens for Docker API requests and manages Docker objects like images, containers, networks, and volumes.
+
 
 ```
 sudo systemctl enable docker.service
 sudo systemctl enable containerd.service
 
 ```
+
+## Inception Setup and Configuration
+
+### Virtual Machine Setup
+
+- **VirtualBox Installation:**
+	- Download and install [VirtualBox](https://www.virtualbox.org/wiki/Downloads) on your host machine.
+	- Create a new VM with the following settings:
+		- **Name**: Inception
+		- **Type**: Linux
+		- **Version**: Ubuntu (64-bit)
+		- **Memory**: 2 GB
+		- **Hard Disk**: Create a new virtual hard disk now (VDI, dynamically allocated, 20 GB)
+	- Start the VM and install Ubuntu 20.04 LTS.
 
 
 
