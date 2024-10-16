@@ -222,9 +222,11 @@ The combination of namespaces and cgroups provides the foundation for containeri
 
 Docker is an open-source platform that automates the deployment of applications inside lightweight, portable containers. It abstracts away many of the complexities involved in managing different environments, allowing developers to focus on writing code that works consistently from development to production.
 
-### Docker Architecture
+#### Docker Architecture
 
 Docker is built on a client-server architecture, which includes the following components:
+
+![docker-architecture-ezgif com-webp-to-png-converter](https://github.com/user-attachments/assets/0a251bbc-1013-4751-84bc-a0022c3d9c75)
 
 1. **Docker Daemon**: The Docker daemon (`dockerd`) is a persistent background process that manages Docker containers and images. It listens for Docker API requests and manages Docker objects like images, containers, networks, and volumes.
 
