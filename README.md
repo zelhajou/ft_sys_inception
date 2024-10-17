@@ -59,8 +59,6 @@
 - **Conclusion**:
 This project is designed to push your understanding of system administration and Docker. It requires a strong grasp of Docker best practices, an understanding of network configuration, and careful management of environment variables and sensitive data. The project mimics the complexities of a real-world deployment scenario, ensuring that by the end, you have hands-on experience in managing and deploying containerized applications.
 
-
-
 ### Deep Dive into Containers
 
 #### What is a Container?
@@ -231,29 +229,45 @@ Docker is built on a client-server architecture, which includes the following co
 1. **Docker Daemon**: The Docker daemon (`dockerd`) is a persistent background process that manages Docker containers and images. It listens for Docker API requests and manages Docker objects like images, containers, networks, and volumes.
 
 
-```
-sudo systemctl enable docker.service
-sudo systemctl enable containerd.service
-
-```
-
 ## Inception Setup and Configuration
 
-### Virtual Machine Setup
+### Setp 1: Setting up the Virtual Machine
 
 - **VirtualBox Installation:**
 	- Download and install [VirtualBox](https://www.virtualbox.org/wiki/Downloads) on your host machine.
 	- Create a new VM with the following settings:
 		- **Name**: Inception
 		- **Type**: Linux
-		- **Version**: Ubuntu (64-bit)
-		- **Memory**: 2 GB
+		- **Version**: Debian (64-bit)
+		- **Memory**: 2 GB (2048 MB)
 		- **Hard Disk**: Create a new virtual hard disk now (VDI, dynamically allocated, 20 GB)
-	- Start the VM and install Ubuntu 20.04 LTS.
+	- Start the VM and install Debian 10 (Buster) using the [Debian ISO](https://www.debian.org/distrib/netinst) image.
+
+- **Debian Installation:**
+
+	- **Installation Settings:**
+		- **Hostname**: inception
+		- **Domain**: 42.fr
+		- **Root Password**: Set a secure root password.
+		- **User Account**: Create a user account with sudo privileges.
+		- **Partitioning**: Use the entire disk with guided partitioning.
+
+	- **Post-Installation Steps:**
+		```bash
+		sudo apt update
+		sudo apt upgrade
+		sudo apt install -y vim curl wget git
+		```
+
+### Step 2: Setting up Docker and Docker Compose
 
 
 
 
+```
+sudo systemctl enable docker.service
+sudo systemctl enable containerd.service
+```
 
 
 ## Tools
