@@ -21,7 +21,9 @@
 	- [Understanding Docker](#understanding-docker)
 		- [What is Docker?](#what-is-docker)
 - [Inception Setup and Configuration](#inception-setup-and-configuration)
-	- [Virtual Machine Setup](#virtual-machine-setup)
+	- [Setp 1: Setting up the Virtual Machine](#setp-1-setting-up-the-virtual-machine)
+	- [Step 2: Setting up Docker and Docker Compose](#step-2-setting-up-docker-and-docker-compose)
+
 - [Tools](#tools)
 - [Resources](#resources)
 	- [YouTube Summaries and Tutorials](#youtube-summaries-and-tutorials)
@@ -238,36 +240,52 @@ Docker is built on a client-server architecture, which includes the following co
 	- Create a new VM with the following settings:
 		- **Name**: Inception
 		- **Type**: Linux
-		- **Version**: Debian (64-bit)
-		- **Memory**: 2 GB (2048 MB)
+		- **Version**: Alpine (64-bit)
+		- **Memory**: 2 GB
 		- **Hard Disk**: Create a new virtual hard disk now (VDI, dynamically allocated, 20 GB)
-	- Start the VM and install Debian 10 (Buster) using the [Debian ISO](https://www.debian.org/distrib/netinst) image.
+	- Start the VM and install Alpine Linux on it.
 
-- **Debian Installation:**
-
-	- **Installation Settings:**
-		- **Hostname**: inception
-		- **Domain**: 42.fr
-		- **Root Password**: Set a secure root password.
-		- **User Account**: Create a user account with sudo privileges.
-		- **Partitioning**: Use the entire disk with guided partitioning.
-
-	- **Post-Installation Steps:**
-		```bash
-		sudo apt update
-		sudo apt upgrade
-		sudo apt install -y vim curl wget git
-		```
+- **Alpine Linux Installation:**
+	- Download the [Alpine Linux ISO](https://alpinelinux.org/downloads/) and attach it to the VM.
+	- Boot the VM from the ISO and follow the on-screen instructions to install Alpine Linux.
+	- Set up the root password and create a new user account.
+	- Update the system and install the necessary packages (e.g., `sudo`, `bash`, `vim`).
 
 ### Step 2: Setting up Docker and Docker Compose
 
+- **Docker Installation:**
+	- Install Docker on Alpine Linux by running the following commands:
+		```bash
+		sudo apk update
+		sudo apk add docker openrc
+		sudo rc-update add docker boot
+		sudo service docker start
+		```
+	- Add your user to the `docker` group to run Docker commands without `sudo`:
+		```bash
+		sudo adduser <username> docker
+		```
+	- Log out and log back in to apply the changes.
+
+- **Docker Compose Installation:**
+	- Install Docker Compose by running the following commands:
+		```bash
+		sudo add docker-cli-compose
+		```
+	- Verify the installation by checking the version:
+		```bash
+		docker-compose --version
+		```
+		
+
+### Step 3: Setting Up the Project Structure
 
 
 
-```
-sudo systemctl enable docker.service
-sudo systemctl enable containerd.service
-```
+
+
+
+
 
 
 ## Tools
@@ -602,13 +620,3 @@ sudo systemctl enable containerd.service
 	 </details>
 
 
-**DevOps**
-
-
-[Online Docker Training Course | KodeKloud](https://kodekloud.com/learning-path-devops-basics/)
-
-[Github - DevOps-exercises](https://github.com/bregman-arie/devops-exercises)
-
-[90DaysOfDevOps](https://github.com/MichaelCade/90DaysOfDevOps)
-
-		
