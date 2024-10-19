@@ -257,7 +257,8 @@ Docker is built on a client-server architecture, which includes the following co
 	- Install Docker on Alpine Linux by running the following commands:
 		```bash
 		sudo apk update
-		sudo apk add docker openrc
+		sudo apk add docker docker-compose
+		sudo apk add --update docker openrc
 		sudo rc-update add docker boot
 		sudo service docker start
 		```
@@ -267,26 +268,25 @@ Docker is built on a client-server architecture, which includes the following co
 		```
 	- Log out and log back in to apply the changes.
 
-- **Docker Compose Installation:**
-	- Install Docker Compose by running the following commands:
+- **Docker Compose CLI Installation:**
+	- Install Docker Compose using the following commands:
 		```bash
-		sudo add docker-cli-compose
+		sudo apk add docker-cli-compose
 		```
-	- Verify the installation by checking the version:
+	- Verify the installation by running `docker-compose --version`.
+
+
+For these two previous steps, you can follow the instructions in the following repository for a more detailed guide : [Inception-Guide](https://github.com/Vikingu-del/Inception-Guide)
+
+
+### Step 3: Setting up the Docker Environment
+
+- **Create a New Directory:**
+	- Create a new directory for your Docker environment:
 		```bash
-		docker-compose --version
+		mkdir inception
+		cd inception
 		```
-		
-
-### Step 3: Setting Up the Project Structure
-
-
-
-
-
-
-
-
 
 ## Tools
 
