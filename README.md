@@ -281,12 +281,34 @@ For these two previous steps, you can follow the instructions in the following r
 
 ### Step 3: Setting up the Docker Environment
 
-- **Create a New Directory:**
-	- Create a new directory for your Docker environment:
-		```bash
-		mkdir inception
-		cd inception
-		```
+- **Project Structure:**
+	- Create a new directory named `inception` and navigate to it.
+	- Inside the `inception` directory, create a subdirectory named `srcs` where you will store all your Dockerfiles and configuration files.
+	```
+	mkdir -p inception/srcs/requirements/{mariadb,wordpress,nginx}/conf
+	mkdir -p inception/srcs/requirements/{mariadb,wordpress,nginx}/tools
+	touch inception/Makefile
+	touch inception/srcs/docker-compose.yml
+	touch inception/srcs/.env
+	touch inception/srcs/requirements/{mariadb,wordpress,nginx}/Dockerfile
+	touch inception/srcs/requirements/{mariadb,wordpress,nginx}/.dockerignore
+	```
+
+Your project structure should now look like this:
+```
+
+
+### Step 4: Building Dockerfiles for Each Service
+
+#### Step 4.1: Writing the Dockerfile for NGINX
+
+**Objective**: Set up an NGINX container that will serve as the reverse proxy for your WordPress application, using TLSv1.2 or TLSv1.3 for secure communication.
+
+
+
+
+	
+
 
 ## Tools
 
