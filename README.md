@@ -296,6 +296,7 @@ For these two previous steps, you can follow the instructions in the following r
 
 Your project structure should now look like this:
 ```
+```
 
 
 ### Step 4: Building Dockerfiles for Each Service
