@@ -285,17 +285,29 @@ For these two previous steps, you can follow the instructions in the following r
 	- Create a new directory named `inception` and navigate to it.
 	- Inside the `inception` directory, create a subdirectory named `srcs` where you will store all your Dockerfiles and configuration files.
 	```
-	mkdir -p inception/srcs/requirements/{mariadb,wordpress,nginx}/conf
-	mkdir -p inception/srcs/requirements/{mariadb,wordpress,nginx}/tools
-	touch inception/Makefile
-	touch inception/srcs/docker-compose.yml
-	touch inception/srcs/.env
-	touch inception/srcs/requirements/{mariadb,wordpress,nginx}/Dockerfile
-	touch inception/srcs/requirements/{mariadb,wordpress,nginx}/.dockerignore
+	mkdir -p inception/srcs/requirements/mariadb/conf inception/srcs/requirements/wordpress/conf inception/srcs/requirements/nginx/conf
+	mkdir -p inception/srcs/requirements/mariadb/tools inception/srcs/requirements/wordpress/tools inception/srcs/requirements/nginx/tools
+	touch inception/srcs/requirements/mariadb/Dockerfile inception/srcs/requirements/wordpress/Dockerfile inception/srcs/requirements/nginx/Dockerfile
+	touch inception/srcs/requirements/mariadb/.dockerignore inception/srcs/requirements/wordpress/.dockerignore inception/srcs/requirements/nginx/.dockerignore
 	```
 
 Your project structure should now look like this:
-```
+```bash
+└── inception
+    └── srcs
+        └── requirements
+            ├── mariadb
+            │   ├── Dockerfile
+            │   ├── conf
+            │   └── tools
+            ├── nginx
+            │   ├── Dockerfile
+            │   ├── conf
+            │   └── tools
+            └── wordpress
+                ├── Dockerfile
+                ├── conf
+                └── tools
 ```
 
 
