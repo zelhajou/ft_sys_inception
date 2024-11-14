@@ -424,17 +424,6 @@ Your project structure should now look like this:
 - **Dockerfile for MariaDB:**
 	- Create a new Dockerfile for MariaDB in `inception/srcs/requirements/mariadb/Dockerfile` with the following content:
 
-	```Dockerfile
-	FROM alpine:latest
-
-	
-
-	```
-
-
-
-
-
 
 
 
