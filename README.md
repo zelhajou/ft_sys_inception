@@ -399,7 +399,6 @@ For these two previous steps, you can follow the instructions in the following r
 Your project structure should now look like this:
 
 ```bash
-
 └── inception
     └── srcs
         └── requirements
@@ -420,9 +419,21 @@ Your project structure should now look like this:
 
 ### Step 4: Building Dockerfiles for Each Service
 
-#### Step 4.1: Writing the Dockerfile for NGINX
+#### Step 4.1: MariaDB Dockerfile
 
-**Objective**: Set up an NGINX container that will serve as the reverse proxy for your WordPress application, using TLSv1.2 or TLSv1.3 for secure communication.
+- **Dockerfile for MariaDB:**
+	- Create a new Dockerfile for MariaDB in `inception/srcs/requirements/mariadb/Dockerfile` with the following content:
+
+	```Dockerfile
+	FROM alpine:latest
+
+	
+
+	```
+
+
+
+
 
 
 
