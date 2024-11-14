@@ -20,6 +20,20 @@
 		- [Orchestration](#orchestration)
 	- [Understanding Docker](#understanding-docker)
 		- [What is Docker?](#what-is-docker)
+		- [Docker Architecture](#docker-architecture)
+			- [1. Docker Client](#1-docker-client)
+			- [2. Docker Daemon](#2-docker-daemon)
+			- [3. Docker Engine](#3-docker-engine)
+			- [4. Docker Registry](#4-docker-registry)
+			- [5. Docker Images:](#5-docker-images)
+			- [6. Docker Containers](#6-docker-containers)
+		- [Docker Workflow](#docker-workflow)
+			- [1. Building Docker Images](#1-building-docker-images)
+			- [2. Shipping Docker Images](#2-shipping-docker-images)
+			- [3. Running Docker Containers](#3-running-docker-containers)
+			- [4. Volumes and Persistent Storage](#4-volumes-and-persistent-storage)
+
+	
 - [Inception Setup and Configuration](#inception-setup-and-configuration)
 	- [Setp 1: Setting up the Virtual Machine](#setp-1-setting-up-the-virtual-machine)
 	- [Step 2: Setting up Docker and Docker Compose](#step-2-setting-up-docker-and-docker-compose)
@@ -146,8 +160,6 @@ A container is a lightweight, stand-alone, and executable software package that 
 </div>
 
 
-
-
 3. **Linux Containers (LXC)**
 	- Linux Containers (LXC) is a containerization technology that uses Linux kernel features like cgroups and namespaces to provide an isolated environment for applications. It is the foundation for Docker and other container platforms.
 	- **Cgroups (Control Groups)**: A Linux kernel feature that limits, accounts for, and isolates the resource usage of a process group. It allows you to allocate resources like CPU, memory, disk I/O, and network bandwidth to containers.
@@ -228,8 +240,99 @@ Docker is built on a client-server architecture, which includes the following co
 
 ![docker-architecture-ezgif com-webp-to-png-converter](https://github.com/user-attachments/assets/0a251bbc-1013-4751-84bc-a0022c3d9c75)
 
-1. **Docker Daemon**: The Docker daemon (`dockerd`) is a persistent background process that manages Docker containers and images. It listens for Docker API requests and manages Docker objects like images, containers, networks, and volumes.
+##### 1. Docker Client
 
+- The Docker Client is the primary way users interact with Docker. When you run commands like `docker run` or `docker build`, the Docker Client sends these commands to the Docker Daemon.
+- **Command-Line Interface (CLI)**: Docker provides a simple CLI that allows you to interact with Docker easily.
+
+##### 2. Docker Daemon
+
+- The Docker daemon (`dockerd`) is a persistent background process that manages Docker containers and images. It listens for Docker API requests and manages Docker objects like images, containers, networks, and volumes.
+
+##### 3. Docker Engine
+
+- Docker Engine is the core component of Docker, consisting of the Docker Daemon, REST API, and the Docker CLI. It’s responsible for managing containers, images, networks, and volumes.
+
+##### 4. Docker Registry
+
+- A Docker Registry is a storage and distribution system for Docker images. The most common public registry is Docker Hub, where you can find and share container images.
+- **Private Registries**: Organizations can also set up private registries to host their images securely.
+
+##### 5. Docker Images
+
+- Docker images are read-only templates used to create containers. An image includes everything needed to run an application: code, runtime, libraries, environment variables, and configuration files.
+- **Layered Filesystem**: Docker images are made up of layers, with each layer representing a set of filesystem changes. This layering system makes Docker images lightweight and easy to share.
+
+##### 6. Docker Containers
+
+- Containers are instances of Docker images that can be run, stopped, and restarted. Containers are isolated from each other and the host system but can share resources, such as files and networking, as needed.
+- **Isolation**: Containers isolate applications from each other and the underlying host, ensuring that each application runs in its own environment.
+
+#### Docker Workflow
+
+The typical workflow in Docker involves building, shipping, and running containers:
+
+##### 1. Building Docker Images
+
+- You create a Docker image using a `Dockerfile`, which is a script of instructions on how to build the image.
+- **Dockerfile**: The Dockerfile is a plain text file that contains a series of instructions for building a Docker image. Each instruction in the Dockerfile creates a layer in the final image.
+
+	- **Basic Instructions:**
+		- `FROM`: Specifies the base image to start from.
+		- `RUN`: Executes a command and creates a new layer in the image.
+		- `COPY`: Copies files or directories from the host system to the image.
+		- `ADD`: Similar to `COPY`, but can also fetch files from URLs and extract tarballs.
+		- `CMD`: Specifies the command to run when the container starts.
+		- `ENTRYPOINT`: Sets the default executable for the container.
+		- `EXPOSE`: Informs Docker that the container listens on a specific network port.
+		- `ENV`: Sets environment variables in the container.
+		- `WORKDIR`: Sets the working directory for commands in the container.
+		- `MAINTAINER`: Specifies the author of the image.
+- After creating a Dockerfile, you build the image using the command `docker build`, which reads the Dockerfile and creates the image.
+
+##### 2. Shipping Docker Images
+
+- Once an image is built, it can be shared by pushing it to a Docker Registry, such as Docker Hub or a private registry.
+- **Pushing and Pulling Images:**
+	- `docker push`: Uploads a local image to a registry.
+	- `docker pull`: Downloads an image from a registry to the local machine.
+
+##### 3. Running Docker Containers
+
+- To run an application, you create a container from a Docker image using the `docker run` command.
+
+- **Managing Containers:**
+	- `docker run`: Creates and starts a container from an image.
+	- `docker start`: Starts a stopped container.
+	- `docker stop`: Stops a running container.
+	- `docker rm`: Removes a container.
+	- `docker ps`: Lists running containers.
+	- `docker ps -a`: Lists all containers, including stopped ones.
+	- `docker exec`: Runs a command in a running container.
+	- `docker logs`: Displays the logs of a container.
+	- `docker inspect`: Shows detailed information about a container or image.
+
+- **Port Mapping**: You can map container ports to host ports using the `-p` flag in the `docker run` command, enabling external access to services running inside the
+
+##### 4. Volumes and Persistent Storage
+
+- **Volumes**: Docker volumes are used to persist data generated by and used by Docker containers. Volumes are stored outside the container’s filesystem and can be shared among multiple containers.
+
+- **Mount types**:
+	- **Volume Mounts**: Managed by Docker and stored in the host filesystem.
+	- **Bind Mounts**: Bind a specific path on the host to a path inside the container.
+	- **Tmpfs Mounts**: Create a temporary filesystem in memory for a container.
+
+
+##### 5. Networking in Docker
+
+Docker provides various networking modes that define how containers communicate with each other and the outside world.
+
+- **Bridge Network**: The default network mode, where each container is connected to an isolated network on the host.
+- **Host Network**: The container shares the host’s network stack, removing the network isolation between container and host.
+- **Overlay Network**: Used in Docker Swarm or Kubernetes to connect containers across different hosts.
+
+#### Docker Compose
 
 ## Inception Setup and Configuration
 
@@ -282,8 +385,10 @@ For these two previous steps, you can follow the instructions in the following r
 ### Step 3: Setting up the Docker Environment
 
 - **Project Structure:**
+
 	- Create a new directory named `inception` and navigate to it.
 	- Inside the `inception` directory, create a subdirectory named `srcs` where you will store all your Dockerfiles and configuration files.
+
 	```
 	mkdir -p inception/srcs/requirements/mariadb/conf inception/srcs/requirements/wordpress/conf inception/srcs/requirements/nginx/conf
 	mkdir -p inception/srcs/requirements/mariadb/tools inception/srcs/requirements/wordpress/tools inception/srcs/requirements/nginx/tools
@@ -292,7 +397,9 @@ For these two previous steps, you can follow the instructions in the following r
 	```
 
 Your project structure should now look like this:
+
 ```bash
+
 └── inception
     └── srcs
         └── requirements
