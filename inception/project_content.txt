@@ -1,0 +1,586 @@
+Project Structure:
+<directory_structure>
+.
+├── Makefile
+├── project_content.txt
+├── scan_project.sh
+└── srcs
+    ├── docker-compose.yml
+    └── requirements
+        ├── mariadb
+        │   ├── Dockerfile
+        │   ├── conf
+        │   │   └── my.cnf
+        │   └── tools
+        │       └── docker-entrypoint.sh
+        ├── nginx
+        │   ├── Dockerfile
+        │   ├── conf
+        │   │   ├── default.conf
+        │   │   └── nginx.conf
+        │   └── tools
+        ├── tools
+        └── wordpress
+            ├── Dockerfile
+            ├── conf
+            │   └── www.conf
+            └── tools
+                └── wordpress-entrypoint.sh
+
+12 directories, 13 files
+</directory_structure>
+
+<makefile>
+File: Makefile
+<file_content>
+# Variables
+DOCKER_COMPOSE = cd srcs && docker-compose
+DATA_PATH = /home/${USER}/data
+WORDPRESS_DATA = $(DATA_PATH)/wordpress
+MARIADB_DATA = $(DATA_PATH)/mariadb
+
+# Colors for pretty printing
+GREEN = \033[0;32m
+YELLOW = \033[1;33m
+NC = \033[0m
+
+all: setup build up
+
+setup:
+	@echo "$(GREEN)Creating necessary directories...$(NC)"
+	@sudo mkdir -p $(WORDPRESS_DATA)
+	@sudo mkdir -p $(MARIADB_DATA)
+	@sudo chmod 777 $(WORDPRESS_DATA)
+	@sudo chmod 777 $(MARIADB_DATA)
+	@echo "$(YELLOW)Setting up hosts file...$(NC)"
+	@if ! grep -q "zelhajou.42.fr" /etc/hosts; then \
+		echo "127.0.0.1 zelhajou.42.fr" | sudo tee -a /etc/hosts; \
+	fi
+
+build:
+	@echo "$(GREEN)Building containers...$(NC)"
+	@$(DOCKER_COMPOSE) build
+
+up:
+	@echo "$(GREEN)Starting containers...$(NC)"
+	@$(DOCKER_COMPOSE) up -d
+
+down:
+	@echo "$(GREEN)Stopping containers...$(NC)"
+	@$(DOCKER_COMPOSE) down -v 2>/dev/null || true
+	@docker rm -f $$(docker ps -aq) 2>/dev/null || true
+
+clean: 
+	@echo "$(GREEN)Cleaning up containers and volumes...$(NC)"
+	@$(DOCKER_COMPOSE) down -v 2>/dev/null || true
+	@docker rm -f $$(docker ps -aq) 2>/dev/null || true
+	@docker volume rm $$(docker volume ls -q) 2>/dev/null || true
+	@docker network prune -f 2>/dev/null || true
+	@sudo rm -rf $(DATA_PATH)
+	@sudo sed -i '/zelhajou.42.fr/d' /etc/hosts
+
+fclean: clean
+	@echo "$(GREEN)Deep cleaning Docker system...$(NC)"
+	@docker system prune -af
+
+ps:
+	@$(DOCKER_COMPOSE) ps
+
+logs:
+	@$(DOCKER_COMPOSE) logs -f
+
+reload: down up
+
+rebuild: fclean all
+
+.PHONY: all setup build up down clean fclean ps logs reload rebuild</file_content>
+
+</makefile>
+<docker_compose>
+File: srcs/docker-compose.yml
+<file_content>
+version: '3.8'
+
+services:
+  mariadb:
+    build:
+      context: requirements/mariadb
+      dockerfile: Dockerfile
+    container_name: mariadb
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - inception_network
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+
+  wordpress:
+    build:
+      context: requirements/wordpress
+      dockerfile: Dockerfile
+    container_name: wordpress
+    volumes:
+      - wordpress_data:/var/www/html
+    networks:
+      - inception_network
+    environment:
+      - WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST}
+      - WORDPRESS_DB_NAME=${WORDPRESS_DB_NAME}
+      - WORDPRESS_DB_USER=${WORDPRESS_DB_USER}
+      - WORDPRESS_DB_PASSWORD=${WORDPRESS_DB_PASSWORD}
+      - WORDPRESS_URL=${WORDPRESS_URL}
+      - WORDPRESS_TITLE=${WORDPRESS_TITLE}
+      - WORDPRESS_ADMIN_USER=${WORDPRESS_ADMIN_USER}
+      - WORDPRESS_ADMIN_PASSWORD=${WORDPRESS_ADMIN_PASSWORD}
+      - WORDPRESS_ADMIN_EMAIL=${WORDPRESS_ADMIN_EMAIL}
+      - WORDPRESS_USER=${WORDPRESS_USER}
+      - WORDPRESS_USER_EMAIL=${WORDPRESS_USER_EMAIL}
+      - WORDPRESS_USER_PASSWORD=${WORDPRESS_USER_PASSWORD}
+    depends_on:
+      - mariadb
+    restart: always
+
+  nginx:
+    build:
+      context: requirements/nginx
+      dockerfile: Dockerfile
+    container_name: nginx
+    ports:
+      - "443:443"
+    volumes:
+      - wordpress_data:/var/www/html
+    networks:
+      - inception_network
+    depends_on:
+      - wordpress
+    restart: always
+
+networks:
+  inception_network:
+    driver: bridge
+
+volumes:
+  wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${VOLUME_PATH}/wordpress
+  mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${VOLUME_PATH}/mariadb</file_content>
+
+</docker_compose>
+<mariadb_files>
+File: srcs/requirements/mariadb/Dockerfile
+<file_content>
+FROM alpine:3.18
+
+# Install MariaDB and required packages
+RUN apk update && apk add --no-cache \
+    mariadb \
+    mariadb-client \
+    mariadb-common \
+    bash
+
+# Create necessary directories
+RUN mkdir -p /run/mysqld \
+    && mkdir -p /var/lib/mysql \
+    && mkdir -p /var/log/mysql \
+    && chown -R mysql:mysql /run/mysqld \
+    && chown -R mysql:mysql /var/lib/mysql \
+    && chown -R mysql:mysql /var/log/mysql \
+    && chmod 777 /var/log/mysql
+
+# Copy configuration
+COPY conf/my.cnf /etc/my.cnf.d/mariadb-server.cnf
+
+# Copy entrypoint script
+COPY tools/docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+# Create directory for socket and grant permissions
+RUN mkdir -p /var/run/mysqld \
+    && chown -R mysql:mysql /var/run/mysqld \
+    && chmod 777 /var/run/mysqld
+
+# Expose MariaDB port
+EXPOSE 3306
+
+# Set entrypoint
+ENTRYPOINT ["docker-entrypoint.sh"]
+
+# Start MariaDB
+CMD ["mysqld", "--user=mysql"]</file_content>
+
+File: srcs/requirements/mariadb/conf/my.cnf
+<file_content>
+[mysqld]
+user                   = mysql
+pid-file               = /run/mysqld/mariadb.pid
+socket                 = /run/mysqld/mysqld.sock
+port                   = 3306
+datadir                = /var/lib/mysql
+log-error              = /var/log/mysql/error.log
+
+# Disabling symbolic-links is recommended to prevent assorted security risks
+symbolic-links        = 0
+
+# Network configuration
+bind-address          = 0.0.0.0
+
+# Character set configuration
+character-set-server  = utf8mb4
+collation-server     = utf8mb4_unicode_ci
+
+# InnoDB configuration
+innodb_buffer_pool_size = 128M
+innodb_file_per_table  = 1
+innodb_flush_method    = O_DIRECT
+innodb_log_buffer_size = 16M
+
+# Performance tuning
+key_buffer_size         = 32M
+max_connections         = 100
+max_allowed_packet     = 16M
+
+[client]
+socket                 = /run/mysqld/mysqld.sock</file_content>
+
+File: srcs/requirements/mariadb/tools/docker-entrypoint.sh
+<file_content>
+#!/bin/bash
+set -eo pipefail
+
+echo "Starting MariaDB initialization..."
+
+# Initialize database if needed
+if [ -z "$(ls -A /var/lib/mysql)" ]; then
+    echo "Initializing MariaDB data directory..."
+    mysql_install_db --user=mysql --datadir=/var/lib/mysql > /dev/null
+
+    echo "Starting temporary MariaDB server..."
+    mysqld --user=mysql --datadir=/var/lib/mysql &
+    pid="$!"
+
+    echo "Waiting for MariaDB to become available..."
+    until mysqladmin ping >/dev/null 2>&1; do
+        sleep 1
+    done
+
+    echo "Configuring MariaDB users and databases..."
+    mysql -u root << EOF
+ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';
+
+CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;
+
+CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';
+GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%';
+
+DELETE FROM mysql.user WHERE User='';
+DROP DATABASE IF EXISTS test;
+DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
+
+FLUSH PRIVILEGES;
+EOF
+
+    echo "Stopping temporary MariaDB server..."
+    kill -s TERM "$pid"
+    wait "$pid"
+fi
+
+echo "Starting MariaDB server..."
+exec mysqld --user=mysql</file_content>
+
+</mariadb_files>
+<nginx_files>
+File: srcs/requirements/nginx/Dockerfile
+<file_content>
+FROM alpine:3.18
+
+# Install nginx and required packages
+RUN apk update && apk add --no-cache \
+    nginx \
+    openssl
+
+# Create directory for SSL certificates
+RUN mkdir -p /etc/nginx/ssl
+
+# Generate self-signed SSL certificate
+RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+    -keyout /etc/nginx/ssl/nginx.key \
+    -out /etc/nginx/ssl/nginx.crt \
+    -subj "/C=FR/ST=IDF/L=Paris/O=42/OU=42/CN=zelhajou.42.fr"
+
+# Create directory for nginx pid file
+RUN mkdir -p /run/nginx
+
+# Copy nginx configuration
+COPY conf/nginx.conf /etc/nginx/nginx.conf
+COPY conf/default.conf /etc/nginx/http.d/default.conf
+
+# Expose port 443
+EXPOSE 443
+
+# Start nginx
+CMD ["nginx", "-g", "daemon off;"]</file_content>
+
+File: srcs/requirements/nginx/conf/default.conf
+<file_content>
+# Save this as: srcs/requirements/nginx/conf/default.conf
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    
+    server_name zelhajou.42.fr;
+    
+    # SSL configuration
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_certificate /etc/nginx/ssl/nginx.crt;
+    ssl_certificate_key /etc/nginx/ssl/nginx.key;
+    
+    # SSL optimization
+    ssl_session_timeout 1d;
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_tickets off;
+    ssl_prefer_server_ciphers off;
+    
+    # Root directory and index
+    root /var/www/html;
+    index index.php;
+    
+    # Forbidden access to .ht* files
+    location ~ /\.ht {
+        deny all;
+    }
+    
+    # WordPress PHP handling
+    location / {
+        try_files $uri $uri/ /index.php?$args;
+    }
+    
+    location ~ \.php$ {
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_pass wordpress:9000;
+        fastcgi_index index.php;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+    }
+}</file_content>
+
+File: srcs/requirements/nginx/conf/nginx.conf
+<file_content>
+# Save this as: srcs/requirements/nginx/conf/nginx.conf
+
+user nginx;
+worker_processes auto;
+pid /run/nginx/nginx.pid;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+
+    # Logging Settings
+    access_log /var/log/nginx/access.log;
+    error_log /var/log/nginx/error.log;
+
+    # Basic Settings
+    sendfile on;
+    tcp_nopush on;
+    tcp_nodelay on;
+    keepalive_timeout 65;
+    types_hash_max_size 2048;
+
+    # Include server configurations
+    include /etc/nginx/http.d/*.conf;
+}</file_content>
+
+</nginx_files>
+<wordpress_files>
+File: srcs/requirements/wordpress/Dockerfile
+<file_content>
+FROM alpine:3.18
+
+# Install required packages
+RUN apk update && apk add --no-cache \
+    php81 \
+    php81-fpm \
+    php81-mysqli \
+    php81-json \
+    php81-curl \
+    php81-dom \
+    php81-exif \
+    php81-fileinfo \
+    php81-mbstring \
+    php81-openssl \
+    php81-xml \
+    php81-zip \
+    php81-phar \
+    mysql-client \
+    wget \
+    unzip 
+
+
+# Install wp-cli
+RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
+    chmod +x wp-cli.phar && \
+    mv wp-cli.phar /usr/local/bin/wp
+
+# Configure php-fpm
+COPY conf/www.conf /etc/php81/php-fpm.d/www.conf
+
+# Configure SSMTP
+RUN echo "sendmail_path = /bin/true" > /etc/php81/conf.d/mail.ini
+
+# Create wordpress directory
+RUN mkdir -p /var/www/html
+
+# Set working directory
+WORKDIR /var/www/html
+
+# Copy entrypoint script
+COPY tools/wordpress-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/wordpress-entrypoint.sh
+
+# Expose port 9000
+EXPOSE 9000
+
+ENTRYPOINT ["wordpress-entrypoint.sh"]
+
+CMD ["/usr/sbin/php-fpm81", "-F"]</file_content>
+
+File: srcs/requirements/wordpress/conf/www.conf
+<file_content>
+[www]
+user = nobody
+group = nobody
+
+listen = 9000
+listen.owner = nobody
+listen.group = nobody
+
+pm = dynamic
+pm.max_children = 5
+pm.start_servers = 2
+pm.min_spare_servers = 1
+pm.max_spare_servers = 3
+pm.max_requests = 500
+
+clear_env = no
+
+php_admin_value[disable_functions] = exec,passthru,shell_exec,system
+php_admin_flag[allow_url_fopen] = on</file_content>
+
+File: srcs/requirements/wordpress/tools/wordpress-entrypoint.sh
+<file_content>
+#!/bin/sh
+set -e
+
+echo "Starting WordPress initialization..."
+
+echo "Waiting for MariaDB to be ready..."
+until mysql -h"$WORDPRESS_DB_HOST" -u"$WORDPRESS_DB_USER" -p"$WORDPRESS_DB_PASSWORD" -e "SELECT 1;" >/dev/null 2>&1; do
+    echo "MariaDB is unavailable - sleeping"
+    sleep 2
+done
+
+echo "MariaDB is up - proceeding with WordPress setup"
+
+if [ ! -f wp-config.php ]; then
+    echo "Downloading WordPress core..."
+    wp core download --allow-root
+
+    echo "Creating wp-config.php..."
+    wp config create \
+        --dbname="$WORDPRESS_DB_NAME" \
+        --dbuser="$WORDPRESS_DB_USER" \
+        --dbpass="$WORDPRESS_DB_PASSWORD" \
+        --dbhost="$WORDPRESS_DB_HOST" \
+        --allow-root
+
+    echo "Installing WordPress..."
+    wp core install \
+        --url="$WORDPRESS_URL" \
+        --title="$WORDPRESS_TITLE" \
+        --admin_user="$WORDPRESS_ADMIN_USER" \
+        --admin_password="$WORDPRESS_ADMIN_PASSWORD" \
+        --admin_email="$WORDPRESS_ADMIN_EMAIL" \
+        --allow-root
+
+    if [ ! -z "$WORDPRESS_USER" ] && [ ! -z "$WORDPRESS_USER_EMAIL" ] && [ ! -z "$WORDPRESS_USER_PASSWORD" ]; then
+        echo "Creating additional user..."
+        wp user create "$WORDPRESS_USER" "$WORDPRESS_USER_EMAIL" \
+            --role=author \
+            --user_pass="$WORDPRESS_USER_PASSWORD" \
+            --allow-root
+    fi
+fi
+
+echo "Setting correct permissions..."
+chown -R nobody:nobody /var/www/html
+
+echo "Starting PHP-FPM..."
+exec "$@"</file_content>
+
+</wordpress_files>
+<env_file>
+File: srcs/.env
+<file_content>
+# Domain configuration
+DOMAIN_NAME=zelhajou.42.fr
+
+# MariaDB configuration
+MYSQL_ROOT_PASSWORD=rootpass123
+MYSQL_DATABASE=wordpress
+MYSQL_USER=wpuser
+MYSQL_PASSWORD=wppass123
+
+# WordPress configuration
+WORDPRESS_DB_HOST=mariadb
+WORDPRESS_DB_NAME=wordpress
+WORDPRESS_DB_USER=wpuser
+WORDPRESS_DB_PASSWORD=wppass123
+
+WORDPRESS_URL=https://zelhajou.42.fr
+WORDPRESS_TITLE=Inception
+WORDPRESS_ADMIN_USER=superuser
+WORDPRESS_ADMIN_PASSWORD=adminpass123
+WORDPRESS_ADMIN_EMAIL=admin@zelhajou.42.fr
+
+WORDPRESS_USER=author
+WORDPRESS_USER_EMAIL=author@zelhajou.42.fr
+WORDPRESS_USER_PASSWORD=authorpass123
+
+# Volumes configuration
+VOLUME_PATH=/home/zelhajou/data
+
+
+# NGINX SSL Configuration
+SSL_CERTIFICATE=/etc/nginx/ssl/nginx.crt
+SSL_CERTIFICATE_KEY=/etc/nginx/ssl/nginx.key
+
+# PHP-FPM Configuration
+PHP_FPM_PM_MAX_CHILDREN=5
+PHP_FPM_PM_START_SERVERS=2
+PHP_FPM_PM_MIN_SPARE_SERVERS=1
+PHP_FPM_PM_MAX_SPARE_SERVERS=3</file_content>
+
+</env_file>
