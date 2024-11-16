@@ -419,11 +419,13 @@ Your project structure should now look like this:
 
 ### Step 4: Building Dockerfiles for Each Service
 
-#### Step 4.1: MariaDB Dockerfile
+#### [Step 4.1: MariaDB Dockerfile]()
+#### [Step 4.2: WordPress Dockerfile]()
+#### [Step 4.3: NGINX Dockerfile]()
 
-- **Dockerfile for MariaDB:**
-	- Create a new Dockerfile for MariaDB in `inception/srcs/requirements/mariadb/Dockerfile` with the following content:
+### Step 5: Setting up Docker Compose
 
+#### [Step 5.1: Creating a Docker Compose File]()
 
 
 
