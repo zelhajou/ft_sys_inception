@@ -14,11 +14,6 @@ services:
     env_file:
       - .env
     restart: always
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 5s
-      timeout: 5s
-      retries: 3
 
   wordpress:
     image: wordpress

@@ -1,61 +1,64 @@
-# Variables
-DOCKER_COMPOSE = cd srcs && docker-compose
-DATA_PATH = /home/${USER}/data
-WORDPRESS_DATA = $(DATA_PATH)/wordpress
-MARIADB_DATA = $(DATA_PATH)/mariadb
-
-# Colors for pretty printing
-GREEN = \033[0;32m
-YELLOW = \033[1;33m
-NC = \033[0m
+DC = cd srcs && docker compose
+VOLUME_PATH = /home/${USER}/data
+WORDPRESS_VOLUME = $(VOLUME_PATH)/wordpress
+MARIADB_VOLUME = $(VOLUME_PATH)/mariadb
+DOMAIN = ${USER}.42.fr
 
 all: setup build up
 
 setup:
-	@echo "$(GREEN)Creating necessary directories...$(NC)"
-	@sudo mkdir -p $(WORDPRESS_DATA)
-	@sudo mkdir -p $(MARIADB_DATA)
-	@sudo chmod 777 $(WORDPRESS_DATA)
-	@sudo chmod 777 $(MARIADB_DATA)
-	@echo "$(YELLOW)Setting up hosts file...$(NC)"
-	@if ! grep -q "zelhajou.42.fr" /etc/hosts; then \
-		echo "127.0.0.1 zelhajou.42.fr" | sudo tee -a /etc/hosts; \
+	@echo "=== Creating data directories ==="
+	@sudo mkdir -p $(WORDPRESS_VOLUME)
+	@sudo mkdir -p $(MARIADB_VOLUME)
+	@sudo chmod 777 $(WORDPRESS_VOLUME)
+	@sudo chmod 777 $(MARIADB_VOLUME)
+	@echo "=== Setting up hosts file ==="
+	@if ! grep -q "$(DOMAIN)" /etc/hosts; then \
+		echo "127.0.0.1 $(DOMAIN)" | sudo tee -a /etc/hosts; \
 	fi
 
 build:
-	@echo "$(GREEN)Building containers...$(NC)"
-	@$(DOCKER_COMPOSE) build
+	@echo "=== Building Docker images ==="
+	@$(DC) build --no-cache
 
 up:
-	@echo "$(GREEN)Starting containers...$(NC)"
-	@$(DOCKER_COMPOSE) up -d
+	@echo "=== Starting services ==="
+	@$(DC) up -d
 
 down:
-	@echo "$(GREEN)Stopping containers...$(NC)"
-	@$(DOCKER_COMPOSE) down -v 2>/dev/null || true
-	@docker rm -f $$(docker ps -aq) 2>/dev/null || true
+	@echo "=== Stopping services ==="
+	@$(DC) down
 
-clean: 
-	@echo "$(GREEN)Cleaning up containers and volumes...$(NC)"
-	@$(DOCKER_COMPOSE) down -v 2>/dev/null || true
-	@docker rm -f $$(docker ps -aq) 2>/dev/null || true
-	@docker volume rm $$(docker volume ls -q) 2>/dev/null || true
-	@docker network prune -f 2>/dev/null || true
-	@sudo rm -rf $(DATA_PATH)
-	@sudo sed -i '/zelhajou.42.fr/d' /etc/hosts
+clean: down
+	@echo "=== Cleaning up Docker resources ==="
+	@docker system prune -af
+	@if [ "$$(docker volume ls -q)" ]; then \
+		docker volume rm $$(docker volume ls -q); \
+	fi
+	@echo "=== Removing data directories ==="
+	@sudo rm -rf $(VOLUME_PATH)
+	@echo "=== Removing domain from hosts file ==="
+	@sudo sed -i '/$(DOMAIN)/d' /etc/hosts
 
 fclean: clean
-	@echo "$(GREEN)Deep cleaning Docker system...$(NC)"
-	@docker system prune -af
+	@echo "=== Performing deep clean ==="
+	@docker system prune -af --volumes
 
-ps:
-	@$(DOCKER_COMPOSE) ps
+status:
+	@echo "=== Container Status ==="
+	@$(DC) ps
+	@echo "\n=== Docker Images ==="
+	@docker images
+	@echo "\n=== Docker Volumes ==="
+	@docker volume ls
+	@echo "\n=== Docker Networks ==="
+	@docker network ls
 
 logs:
-	@$(DOCKER_COMPOSE) logs -f
+	@$(DC) logs -f
 
-reload: down up
+restart: down up
 
-rebuild: fclean all
+re: fclean all
 
-.PHONY: all setup build up down clean fclean ps logs reload rebuild
+.PHONY: all setup build up down clean fclean status logs restart re help

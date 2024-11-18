@@ -164,6 +164,62 @@ If any of these directories is missing or has incorrect permissions, MariaDB wou
 ```dockerfile
 COPY conf/my.cnf /etc/my.cnf.d/mariadb-server.cnf
 ```
-- Copies the custom MariaDB configuration file to the container
-- The file is copied to `/etc/my.cnf.d/mariadb-server.cnf` inside the container
-- This file is used to configure MariaDB server settings
+
+- This copies your custom MariaDB configuration file into the container
+- The file contains important settings like:
+    - Network configuration
+    - Character set settings
+    - Buffer sizes
+    - Performance parameters
+- Without this, MariaDB would use default settings which might not be optimal
+
+- `my.cnf` is the MariaDB configuration file
+    ```cnf
+    [mysqld]
+    user                   = mysql
+    pid-file               = /run/mysqld/mariadb.pid
+    socket                 = /run/mysqld/mysqld.sock
+    port                   = 3306
+    datadir                = /var/lib/mysql
+    log-error              = /var/log/mysql/error.log
+    ```
+    - Basic server configuration:
+        - Runs as mysql user
+        - PID file location for process management
+        - Unix socket location for local connections
+        - Standard port 3306
+        - Data directory location
+        - Error log location
+    ```cnf
+    bind-address          = 0.0.0.0
+    skip-networking       = 0
+    ```
+    - Network configuration:
+        - Allows connections from any IP address
+        - Required since WordPress container needs to connect to MariaDB
+        - Enables networking support
+
+```dockerfile
+COPY tools/docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+```
+
+- `COPY tools/docker-entrypoint.sh /usr/local/bin/`:
+    - Copies your initialization script to the container
+    - The script handles:
+        - Database initialization
+        - User creation
+        - Setting up permissions
+        - Initial database configuration
+    - Without this script, MariaDB would start with default settings and no databases
+    - details explanation of the script is in the [tools/README.md](./tools/README.md)
+
+- `RUN chmod +x /usr/local/bin/docker-entrypoint.sh`:
+    - Changes the script's permissions to make it executable
+    - Necessary to run the script as an entrypoint
+
+```dockerfile
+EXPOSE 3306
+```
+
+
