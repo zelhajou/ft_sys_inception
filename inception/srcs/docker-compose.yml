@@ -1,8 +1,6 @@
-version: '3.8'
-
 services:
   mariadb:
-    image: mariadb
+    image: "mariadb:inception"
     build:
       context: requirements/mariadb
       dockerfile: Dockerfile
@@ -16,7 +14,7 @@ services:
     restart: always
 
   wordpress:
-    image: wordpress
+    image: "wordpress:inception"
     build:
       context: requirements/wordpress
       dockerfile: Dockerfile
@@ -32,7 +30,7 @@ services:
     restart: always
 
   nginx:
-    image: nginx
+    image: "nginx:inception"
     build:
       context: requirements/nginx
       dockerfile: Dockerfile

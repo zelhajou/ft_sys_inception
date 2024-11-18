@@ -35,6 +35,9 @@ clean: down
 	@if [ "$$(docker volume ls -q)" ]; then \
 		docker volume rm $$(docker volume ls -q); \
 	fi
+	@if [ "$$(docker network ls --filter name=inception -q)" ]; then \
+		docker network rm $$(docker network ls --filter name=inception -q); \
+	fi
 	@echo "=== Removing data directories ==="
 	@sudo rm -rf $(VOLUME_PATH)
 	@echo "=== Removing domain from hosts file ==="
