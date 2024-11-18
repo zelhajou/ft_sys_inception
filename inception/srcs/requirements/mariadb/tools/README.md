@@ -6,14 +6,10 @@
 #!/bin/bash
 set -e
 ```
-- Using `/bin/sh` instead of `/bin/bash` because:
-    - It's lighter and available in Alpine Linux by default
-    - We don't need any bash-specific features
-    - Follows container best practices of minimalism
-- Using `/bin/sh instead` of `/bin/bash` because:
-    - It's lighter and available in Alpine Linux by default
-    - We don't need any bash-specific features
-    - Follows container best practices of minimalism
+- Using `/bin/bash` as the interpreter
+- `set -e` flag stops the script on the first error
+- Ensures that the script fails early if any command fails
+- Prevents the script from continuing with an incomplete or incorrect setup
 
 ### 2. Initialization Check
 
@@ -106,7 +102,7 @@ FLUSH PRIVILEGES;
 6. Server Start
 
 ```bash
-exec mysqld --user=mysql --init-file=/tmp/init.sql
+exec mysqld --user=mysql
 ```
 
 - Why use exec:
