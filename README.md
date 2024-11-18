@@ -419,7 +419,13 @@ Your project structure should now look like this:
 
 ### Step 4: Building Dockerfiles for Each Service
 
+![diagram2](https://github.com/user-attachments/assets/3da6c1b8-f43e-4dd0-99be-ef03d404799d)
+
+
+<!--
 ![Diagram](https://github.com/user-attachments/assets/6b3e7b16-3949-44ad-b824-1471ea40ae4a)
+-->
+
 
 #### [Step 4.1: MariaDB Dockerfile](https://github.com/zelhajou/42cursus-inception/tree/main/inception/srcs/requirements/mariadb)
 #### [Step 4.2: WordPress Dockerfile]()
