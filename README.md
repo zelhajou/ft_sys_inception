@@ -27,7 +27,6 @@ The project consists of three main services, each running in its own container:
 ![diagram2](https://github.com/user-attachments/assets/3da6c1b8-f43e-4dd0-99be-ef03d404799d)
 
 
-
 ## Technologies
 
 - Docker & Docker Compose
