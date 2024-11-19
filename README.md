@@ -68,12 +68,16 @@ The project consists of three main services, each running in its own container:
 			- [2. Shipping Docker Images](#2-shipping-docker-images)
 			- [3. Running Docker Containers](#3-running-docker-containers)
 			- [4. Volumes and Persistent Storage](#4-volumes-and-persistent-storage)
-
-	
 - [Inception Setup and Configuration](#inception-setup-and-configuration)
 	- [Setp 1: Setting up the Virtual Machine](#setp-1-setting-up-the-virtual-machine)
 	- [Step 2: Setting up Docker and Docker Compose](#step-2-setting-up-docker-and-docker-compose)
-
+	- [Step 3: Setting up the Docker Environment](#step-3-setting-up-the-docker-environment)
+	- [Step 4: Building Dockerfiles for Each Service](#step-4-building-dockerfiles-for-each-service)
+		- [Step 4.1: MariaDB Dockerfile](#step-41-mariadb-dockerfile)
+		- [Step 4.2: WordPress Dockerfile](#step-42-wordpress-dockerfile)
+		- [Step 4.3: NGINX Dockerfile](#step-43-nginx-dockerfile)
+	- [Step 5: Setting up Docker Compose](#step-5-setting-up-docker-compose)
+	
 - [Tools](#tools)
 - [Resources](#resources)
 	- [YouTube Summaries and Tutorials](#youtube-summaries-and-tutorials)
