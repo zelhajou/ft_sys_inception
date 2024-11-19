@@ -3,9 +3,46 @@
 
 # Inception
 
+## Overview
+Inception is a System Administration project focused on Docker containerization and service orchestration. The project implements a small-scale but production-ready infrastructure using Docker Compose, creating a secure and modular web hosting environment.
+
+## Infrastructure
+The project consists of three main services, each running in its own container:
+
+- **NGINX Container**: Front-facing web server with SSL/TLS encryption
+- **WordPress + PHP-FPM Container**: Application server for WordPress
+- **MariaDB Container**: Database server for persistent data storage
+
+**Key Features**:
+
+- 🔐 SSL/TLS encryption (v1.2/1.3) for secure communication
+- 🐳 Custom Docker images built from Alpine Linux
+- 📦 Persistent data storage using Docker volumes
+- 🔄 Automatic container restart on failure
+- 🌐 Custom domain name configuration
+- 🔒 Environment variable management for sensitive data
+
+**Architecture**:
+
+![diagram2](https://github.com/user-attachments/assets/3da6c1b8-f43e-4dd0-99be-ef03d404799d)
+
+
+
+## Technologies
+
+- Docker & Docker Compose
+- NGINX with SSL/TLS
+- WordPress & PHP-FPM
+- MariaDB
+- Alpine Linux
+- Bash Scripting
+
 ## Table of Contents
 
-- [Project Overview](#project-overview)
+- [Overview](#overview)
+- [Infrastructure](#infrastructure)
+- [Technologies](#technologies)
+- [Table of Contents](#table-of-contents)
 - [Deep Dive into Containers](#deep-dive-into-containers)
 	- [What is a Container?](#what-is-a-container)
 	- [How Containers Differ from Virtual Machines](#how-containers-differ-from-virtual-machines)
@@ -43,39 +80,9 @@
 	- [YouTube Summaries and Tutorials](#youtube-summaries-and-tutorials)
 
 
-## Project Overview
+## Deep Dive into Containers
 
-- **Objective:** The main goal of this project is to have you set up a small infrastructure composed of various services running inside Docker containers. This infrastructure will simulate a real-world environment where different services interact with each other within a virtualized environment.
-
-- **Key Components:**
-	1. **Virtual Machine:** The entire project must be executed within a Virtual Machine (VM). This ensures that the environment is controlled and isolated from the host system.
-	2. **Docker Containers:**
-		- You will be creating multiple Docker containers, each dedicated to a specific service.
-		- **Services Required:**
-			- **NGINX** with TLSv1.2 or TLSv1.3
-			- **WordPress** with php-fpm (without NGINX)
-			- **MariaDB (a popular database system)**
-		- Each service must have its Dockerfile, and the Docker images must be built by you using Docker Compose. It is forbidden to use pre-built images from sources like DockerHub (with the exception of Alpine or Debian as base images).
-	3. **Volumes and Networking:**
-		- You will set up Docker volumes to persist data, particularly for the WordPress database and website files.
-		- A custom Docker network must be created to allow the containers to communicate with each other securely.
-	4. **Domain Configuration:**
-		- You must configure a domain name that points to your local IP address. This domain will be in the format `login.42.fr`, where "login" is your own username.
-	5. **Security and Best Practices:**
-		- Environment variables must be used for sensitive data such as passwords, which should be stored in a `.env` file.
-		- The NGINX container should be the only entry point to your infrastructure, serving traffic over HTTPS via port 443.
-
-- **Bonus Objectives:**
-	- If you successfully complete the mandatory tasks perfectly, you can also add extra services as part of a bonus. These can include setting up:
-		- A Redis cache for WordPress.
-		- An FTP server.
-		- A simple static website (excluding PHP).
-		- Adminer, a database management tool.
-		- Any other service you deem useful, provided you can justify its inclusion.
-
-### Deep Dive into Containers
-
-#### What is a Container?
+### What is a Container?
 
 A container is a lightweight, stand-alone, and executable software package that includes everything needed to run a piece of software, including the code, runtime, system tools, libraries, and settings. Containers leverage the host operating system's kernel, making them more efficient than traditional virtual machines (VMs), which require a full OS instance for each application.
 
@@ -95,7 +102,7 @@ A container is a lightweight, stand-alone, and executable software package that 
 - [Tiny Technical Tutorial - Containers in AWS | For Absolute Beginners](https://youtu.be/NI34uF7VVP8)
 - [Metwally Labs - Container Stroy [AR]](https://youtu.be/jPzJVH1ab-4)
 
-#### How Containers Differ from Virtual Machines
+### How Containers Differ from Virtual Machines
 
 <div align="center">
 	
@@ -113,11 +120,8 @@ A container is a lightweight, stand-alone, and executable software package that 
 	- **Containers** are highly portable due to their lightweight nature. They can run on any system that has a container runtime (like Docker) without the need to adjust for different environments.
 	- **VMs** are less portable since they are tied to the specific hypervisor and OS configuration.
 
+### Key Concepts in Containers
 
-
-
-
-#### Key Concepts in Containers
 <div align="center">
 	
 ![big-idea-every-dependency](https://github.com/user-attachments/assets/6905ac47-9877-4a4c-8761-66c2d1159417)
@@ -226,51 +230,51 @@ The combination of namespaces and cgroups provides the foundation for containeri
 - **Kubernetes**: A powerful open-source system for automating the deployment, scaling, and management of containerized applications across clusters of hosts.
 
 
-### Understanding Docker
+## Understanding Docker
 
-#### What is Docker?
+### What is Docker?
 
 Docker is an open-source platform that automates the deployment of applications inside lightweight, portable containers. It abstracts away many of the complexities involved in managing different environments, allowing developers to focus on writing code that works consistently from development to production.
 
-#### Docker Architecture
+### Docker Architecture
 
 Docker is built on a client-server architecture, which includes the following components:
 
 ![docker-architecture-ezgif com-webp-to-png-converter](https://github.com/user-attachments/assets/0a251bbc-1013-4751-84bc-a0022c3d9c75)
 
-##### 1. Docker Client
+#### 1. Docker Client
 
 - The Docker Client is the primary way users interact with Docker. When you run commands like `docker run` or `docker build`, the Docker Client sends these commands to the Docker Daemon.
 - **Command-Line Interface (CLI)**: Docker provides a simple CLI that allows you to interact with Docker easily.
 
-##### 2. Docker Daemon
+#### 2. Docker Daemon
 
 - The Docker daemon (`dockerd`) is a persistent background process that manages Docker containers and images. It listens for Docker API requests and manages Docker objects like images, containers, networks, and volumes.
 
-##### 3. Docker Engine
+#### 3. Docker Engine
 
 - Docker Engine is the core component of Docker, consisting of the Docker Daemon, REST API, and the Docker CLI. It’s responsible for managing containers, images, networks, and volumes.
 
-##### 4. Docker Registry
+#### 4. Docker Registry
 
 - A Docker Registry is a storage and distribution system for Docker images. The most common public registry is Docker Hub, where you can find and share container images.
 - **Private Registries**: Organizations can also set up private registries to host their images securely.
 
-##### 5. Docker Images
+#### 5. Docker Images
 
 - Docker images are read-only templates used to create containers. An image includes everything needed to run an application: code, runtime, libraries, environment variables, and configuration files.
 - **Layered Filesystem**: Docker images are made up of layers, with each layer representing a set of filesystem changes. This layering system makes Docker images lightweight and easy to share.
 
-##### 6. Docker Containers
+#### 6. Docker Containers
 
 - Containers are instances of Docker images that can be run, stopped, and restarted. Containers are isolated from each other and the host system but can share resources, such as files and networking, as needed.
 - **Isolation**: Containers isolate applications from each other and the underlying host, ensuring that each application runs in its own environment.
 
-#### Docker Workflow
+### Docker Workflow
 
 The typical workflow in Docker involves building, shipping, and running containers:
 
-##### 1. Building Docker Images
+#### 1. Building Docker Images
 
 - You create a Docker image using a `Dockerfile`, which is a script of instructions on how to build the image.
 - **Dockerfile**: The Dockerfile is a plain text file that contains a series of instructions for building a Docker image. Each instruction in the Dockerfile creates a layer in the final image.
@@ -288,14 +292,14 @@ The typical workflow in Docker involves building, shipping, and running containe
 		- `MAINTAINER`: Specifies the author of the image.
 - After creating a Dockerfile, you build the image using the command `docker build`, which reads the Dockerfile and creates the image.
 
-##### 2. Shipping Docker Images
+#### 2. Shipping Docker Images
 
 - Once an image is built, it can be shared by pushing it to a Docker Registry, such as Docker Hub or a private registry.
 - **Pushing and Pulling Images:**
 	- `docker push`: Uploads a local image to a registry.
 	- `docker pull`: Downloads an image from a registry to the local machine.
 
-##### 3. Running Docker Containers
+#### 3. Running Docker Containers
 
 - To run an application, you create a container from a Docker image using the `docker run` command.
 
@@ -312,7 +316,7 @@ The typical workflow in Docker involves building, shipping, and running containe
 
 - **Port Mapping**: You can map container ports to host ports using the `-p` flag in the `docker run` command, enabling external access to services running inside the
 
-##### 4. Volumes and Persistent Storage
+#### 4. Volumes and Persistent Storage
 
 - **Volumes**: Docker volumes are used to persist data generated by and used by Docker containers. Volumes are stored outside the container’s filesystem and can be shared among multiple containers.
 
@@ -322,7 +326,7 @@ The typical workflow in Docker involves building, shipping, and running containe
 	- **Tmpfs Mounts**: Create a temporary filesystem in memory for a container.
 
 
-##### 5. Networking in Docker
+#### 5. Networking in Docker
 
 Docker provides various networking modes that define how containers communicate with each other and the outside world.
 
@@ -330,7 +334,9 @@ Docker provides various networking modes that define how containers communicate 
 - **Host Network**: The container shares the host’s network stack, removing the network isolation between container and host.
 - **Overlay Network**: Used in Docker Swarm or Kubernetes to connect containers across different hosts.
 
-#### Docker Compose
+### Docker Compose
+
+Docker Compose is a tool for defining and running multi-container Docker applications. It uses a YAML file to configure the application’s services, networks, and volumes, allowing you to define a multi-container environment with a single command.
 
 ## Inception Setup and Configuration
 
@@ -384,18 +390,6 @@ For these two previous steps, you can follow the instructions in the following r
 
 - **Project Structure:**
 
-	- Create a new directory named `inception` and navigate to it.
-	- Inside the `inception` directory, create a subdirectory named `srcs` where you will store all your Dockerfiles and configuration files.
-
-	```
-	mkdir -p inception/srcs/requirements/mariadb/conf inception/srcs/requirements/wordpress/conf inception/srcs/requirements/nginx/conf
-	mkdir -p inception/srcs/requirements/mariadb/tools inception/srcs/requirements/wordpress/tools inception/srcs/requirements/nginx/tools
-	touch inception/srcs/requirements/mariadb/Dockerfile inception/srcs/requirements/wordpress/Dockerfile inception/srcs/requirements/nginx/Dockerfile
-	touch inception/srcs/requirements/mariadb/.dockerignore inception/srcs/requirements/wordpress/.dockerignore inception/srcs/requirements/nginx/.dockerignore
-	```
-
-Your project structure should now look like this:
-
 ```bash
 └── inception
     └── srcs
@@ -416,8 +410,6 @@ Your project structure should now look like this:
 
 
 ### Step 4: Building Dockerfiles for Each Service
-
-![diagram2](https://github.com/user-attachments/assets/3da6c1b8-f43e-4dd0-99be-ef03d404799d)
 
 
 <!--
