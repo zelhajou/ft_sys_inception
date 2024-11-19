@@ -410,11 +410,7 @@ For these two previous steps, you can follow the instructions in the following r
 
 ### Step 4: Building Dockerfiles for Each Service
 
-
-<!--
 ![Diagram](https://github.com/user-attachments/assets/6b3e7b16-3949-44ad-b824-1471ea40ae4a)
--->
-
 
 #### [Step 4.1: MariaDB Dockerfile](https://github.com/zelhajou/42cursus-inception/tree/main/inception/srcs/requirements/mariadb)
 #### [Step 4.2: WordPress Dockerfile]()
@@ -422,11 +418,7 @@ For these two previous steps, you can follow the instructions in the following r
 
 ### Step 5: Setting up Docker Compose
 
-#### [Step 5.1: Creating a Docker Compose File]()
 
-
-
-	
 
 
 ## Tools
