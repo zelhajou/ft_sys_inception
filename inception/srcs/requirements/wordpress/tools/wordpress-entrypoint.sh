@@ -1,13 +1,23 @@
 #!/bin/bash
 set -e
 
-until mysql -h$WORDPRESS_DB_HOST -u$WORDPRESS_DB_USER -p$WORDPRESS_DB_PASSWORD -e "SELECT 1"; do
-    echo "Waiting for MariaDB..."
-    sleep 3
-done
+wait_for_mariadb() {
+    echo "Waiting for MariaDB to be ready..."
+    while ! mysqladmin ping -h"$WORDPRESS_DB_HOST" -u"$WORDPRESS_DB_USER" -p"$WORDPRESS_DB_PASSWORD" --silent; do
+        echo "MariaDB is unavailable - sleeping"
+        sleep 5
+    done
+    echo "MariaDB is up and running!"
+}
+
+wait_for_mariadb
 
 if [ ! -f wp-config.php ]; then
-    wp core download --allow-root
+    echo "WordPress configuration not found. Installing WordPress..."
+
+    if [ ! -f index.php ]; then
+        wp core download --allow-root
+    fi
 
     wp config create \
         --dbname=$WORDPRESS_DB_NAME \
@@ -23,6 +33,17 @@ if [ ! -f wp-config.php ]; then
         --admin_password=$WORDPRESS_ADMIN_PASSWORD \
         --admin_email=$WORDPRESS_ADMIN_EMAIL \
         --allow-root
+    
+    wp user create \
+        $WORDPRESS_USER \
+        $WORDPRESS_USER_EMAIL \
+        --role=author \
+        --user_pass=$WORDPRESS_USER_PASSWORD \
+        --allow-root
+    echo "WordPress installation completed!"
+else
+    echo "WordPress is already installed."
 fi
 
+echo "Starting PHP-FPM..."
 exec "$@"

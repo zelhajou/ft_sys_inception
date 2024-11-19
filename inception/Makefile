@@ -32,20 +32,16 @@ down:
 clean: down
 	@echo "=== Cleaning up Docker resources ==="
 	@docker system prune -af
+	@echo "=== Removing Docker volumes ==="
 	@if [ "$$(docker volume ls -q)" ]; then \
 		docker volume rm $$(docker volume ls -q); \
 	fi
-	@if [ "$$(docker network ls --filter name=inception -q)" ]; then \
-		docker network rm $$(docker network ls --filter name=inception -q); \
-	fi
-	@echo "=== Removing data directories ==="
+
+fclean: clean
+	@echo "=== Removing all data directories ==="
 	@sudo rm -rf $(VOLUME_PATH)
 	@echo "=== Removing domain from hosts file ==="
 	@sudo sed -i '/$(DOMAIN)/d' /etc/hosts
-
-fclean: clean
-	@echo "=== Performing deep clean ==="
-	@docker system prune -af --volumes
 
 status:
 	@echo "=== Container Status ==="

@@ -2,6 +2,7 @@
 set -e
 
 if [ ! -d "/var/lib/mysql/mysql" ]; then
+    echo "Initializing MariaDB data directory..."
     mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
     mysqld --user=mysql --bootstrap << EOF
@@ -20,4 +21,5 @@ FLUSH PRIVILEGES;
 EOF
 fi
 
+echo "Starting MariaDB server..."
 exec mysqld --user=mysql

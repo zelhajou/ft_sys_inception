@@ -7,8 +7,10 @@ RUN apk update && apk add --no-cache \
     bash
 
 RUN mkdir -p /run/mysqld && \
+    mkdir -p /var/lib/mysql && \
     mkdir -p /var/log/mysql && \
     chown -R mysql:mysql /run/mysqld && \
+    chown -R mysql:mysql /var/lib/mysql && \
     chown -R mysql:mysql /var/log/mysql
 
 COPY conf/my.cnf /etc/my.cnf.d/mariadb-server.cnf
