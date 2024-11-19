@@ -72,8 +72,6 @@
 		- A simple static website (excluding PHP).
 		- Adminer, a database management tool.
 		- Any other service you deem useful, provided you can justify its inclusion.
-- **Conclusion**:
-This project is designed to push your understanding of system administration and Docker. It requires a strong grasp of Docker best practices, an understanding of network configuration, and careful management of environment variables and sensitive data. The project mimics the complexities of a real-world deployment scenario, ensuring that by the end, you have hands-on experience in managing and deploying containerized applications.
 
 ### Deep Dive into Containers
 
