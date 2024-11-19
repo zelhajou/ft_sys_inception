@@ -313,7 +313,11 @@ The typical workflow in Docker involves building, shipping, and running containe
 	- `docker logs`: Displays the logs of a container.
 	- `docker inspect`: Shows detailed information about a container or image.
 
-- **Port Mapping**: You can map container ports to host ports using the `-p` flag in the `docker run` command, enabling external access to services running inside the
+- **Port Mapping**: You can map container ports to host ports using the `-p` flag in the `docker run` command, enabling external access to services running inside the container.
+
+- **Environment Variables**: Docker allows you to set environment variables in containers using the `-e` flag in the `docker run` command.
+
+- **Docker Compose**: A tool for defining and running multi-container Docker applications. With a single YAML file, you can configure all the services your application needs.
 
 #### 4. Volumes and Persistent Storage
 
