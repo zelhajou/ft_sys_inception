@@ -1,6 +1,6 @@
 ## 1. Project Management (using Makefile)
 
-```bash
+```makefile
 # Build and start everything
 make all
 
@@ -28,7 +28,7 @@ make re
 
 ## 2. Container Management
 
-```bash
+```dockerfile
 # List running containers
 docker ps
 
@@ -61,7 +61,7 @@ docker logs -f nginx
 
 ## 3. Network Management
 
-```bash
+```dockerfile
 # List networks
 docker network ls
 
@@ -71,7 +71,7 @@ docker network inspect inception_network
 
 ## 4. Volume Management
 
-```bash
+```dockerfile
 # List volumes
 docker volume ls
 
@@ -92,7 +92,7 @@ docker volume prune
 
 ## 5. Image Management
 
-```bash
+```dockerfile
 # List images
 docker images
 
@@ -107,7 +107,7 @@ docker image prune
 
 ## 6. Docker Compose Commands (from srcs directory)
 
-```bash
+```dockerfile
 # Build and start services
 docker compose up -d
 
@@ -129,7 +129,7 @@ docker compose restart
 
 ## 7. Debugging Commands:
 
-```bash
+```dockerfile
 # Check container resource usage
 docker stats
 
@@ -146,7 +146,7 @@ docker top mariadb
 
 ## 8. Cleanup Commands:
 
-```bash
+```dockerfile
 # Remove all stopped containers
 docker container prune
 
@@ -162,7 +162,7 @@ docker system prune -a --volumes
 
 ## 9. WordPress Specific Commands:
 
-```bash
+```dockerfile
 # Access WordPress container and run WP-CLI commands
 docker exec -it wordpress wp user list --allow-root
 docker exec -it wordpress wp plugin list --allow-root
@@ -171,7 +171,7 @@ docker exec -it wordpress wp theme list --allow-root
 
 ## 10. Database (MariaDB) Specific Commands:
 
-```bash
+```dockerfile
 # Access MariaDB
 docker exec -it mariadb mysql -u$MYSQL_USER -p$MYSQL_PASSWORD
 
@@ -184,7 +184,7 @@ docker exec -i mariadb mysql -u$MYSQL_USER -p$MYSQL_PASSWORD $MYSQL_DATABASE < b
 
 **DataBase Commands:**
 
-```bash
+```mysql
 # Show all Users
 SELECT User FROM mysql.user;
 
@@ -207,7 +207,7 @@ SHOW TABLES;
 
 ## 11. Miscellaneous Commands:
 
-```bash
+```dockerfile
 # Check Docker version
 docker version
 
@@ -220,7 +220,7 @@ docker system df
 
 ## 12. Docker Hub Commands:
 
-```bash
+```dockerfile
 # Login to Docker Hub
 docker login
 
