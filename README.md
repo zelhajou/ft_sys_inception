@@ -770,3 +770,7 @@ For these two previous steps, you can follow the instructions in the following r
 	 </details>
 
 
+- [Docker and Kubernetes | العلبة دي فيها سوعبان](https://www.youtube.com/watch?v=PrusdhS2lmo&list=PLzjH3XFHoi6gStKQVmdrw4lp16EuCkxli&index=6&t=18549s&pp=gAQBiAQB)
+- [#9 - Understanding Docker Networking](https://youtu.be/MGgw1bv8HyQ?list=PLzjH3XFHoi6gStKQVmdrw4lp16EuCkxli)
+- [Learn Docker in 1 Hour | Full Docker Course for Beginners](https://youtu.be/GFgJkfScVNU?list=PLzjH3XFHoi6gStKQVmdrw4lp16EuCkxli)
+- [Docker networking is CRAZY!! (you NEED to learn it](https://youtu.be/bKFMS5C4CG0?list=PLzjH3XFHoi6gStKQVmdrw4lp16EuCkxli)
